@@ -33,7 +33,7 @@ export const Input = <K extends number | string>({
         onChange={(e) => setInputValue(e.target.value as K)}
         onBlur={() => onChange((number ? Number(inputValue) : inputValue) as K)}
         onKeyDown={(e) => e.key === 'Enter' && onChange(inputValue as K)}
-        className="w-full p-2 border border-gray-300 rounded-md"
+        className="w-full px-2 py-1  rounded-md bg-slate-200 text-slate-800"
         placeholder={label}
         required={required}
       />

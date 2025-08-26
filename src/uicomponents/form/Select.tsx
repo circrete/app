@@ -11,7 +11,7 @@ export const Select: React.FC<{
     <div>
       {label && <Label>{label}</Label>}
       <select
-        className="w-full p-2 border border-gray-300 rounded-md"
+        className="w-full px-2 py-1 rounded-md bg-slate-200 text-slate-800"
         key={value}
         value={value}
         onChange={(e) => onChange(e.target.value)}
