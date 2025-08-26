@@ -19,7 +19,7 @@ export const CrossSectionEditForm: React.FC<{
   const editMultipleCrossSections = useMutation(api.tasks.editing.crossSections.editMultipleCrossSections);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isMultiEdit = crossSections.length > 1;
+  const isRequired = crossSections.length < 2;
   const crossSection = crossSections[0]; // For single edit, use the first cross section
 
   const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ export const CrossSectionEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (isMultiEdit) {
+      if (!isRequired) {
         await editMultipleCrossSections({
           crossSectionIds: crossSections.map((cs) => cs._id),
           ...formData
@@ -77,17 +77,12 @@ export const CrossSectionEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Cross Section', crossSections.length)}</h2>
-          {isMultiEdit ? (
+          {isRequired ? (
+            <Label>{crossSection?._id}</Label>
+          ) : (
             <div className="space-y-1">
               <Label>Editing {crossSections.length} cross sections</Label>
-              {crossSections.map((cs, index) => (
-                <div key={cs._id} className="text-sm text-gray-600">
-                  {index + 1}. {cs._id}
-                </div>
-              ))}
             </div>
-          ) : (
-            <Label>{crossSection?._id}</Label>
           )}
         </div>
 
@@ -98,13 +93,13 @@ export const CrossSectionEditForm: React.FC<{
                 label="Type"
                 value={formData.type}
                 onChange={(type) => setFormData({ ...formData, type })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Category"
                 value={formData.crossSectionCategory}
                 onChange={(crossSectionCategory) => setFormData({ ...formData, crossSectionCategory })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Height"
@@ -112,7 +107,7 @@ export const CrossSectionEditForm: React.FC<{
                 step={0.1}
                 value={formData.height}
                 onChange={(height) => setFormData({ ...formData, height })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Width"
@@ -120,7 +115,7 @@ export const CrossSectionEditForm: React.FC<{
                 step={0.1}
                 value={formData.width}
                 onChange={(width) => setFormData({ ...formData, width })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Moment"
@@ -128,7 +123,7 @@ export const CrossSectionEditForm: React.FC<{
                 step={0.1}
                 value={formData.moment}
                 onChange={(moment) => setFormData({ ...formData, moment })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Normal"
@@ -136,7 +131,7 @@ export const CrossSectionEditForm: React.FC<{
                 step={0.1}
                 value={formData.normal}
                 onChange={(normal) => setFormData({ ...formData, normal })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Shear"
@@ -144,7 +139,7 @@ export const CrossSectionEditForm: React.FC<{
                 step={0.1}
                 value={formData.shear}
                 onChange={(shear) => setFormData({ ...formData, shear })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
             </div>
 
@@ -153,7 +148,7 @@ export const CrossSectionEditForm: React.FC<{
                 label="Concrete Material"
                 value={formData.concreteMaterialTypeId}
                 onChange={(concreteMaterialTypeId) => setFormData({ ...formData, concreteMaterialTypeId })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
                 options={materials.map((material) => ({
                   label: `${material.materialCategory} - ${material.exposureClass}`,
                   value: material._id
@@ -162,6 +157,7 @@ export const CrossSectionEditForm: React.FC<{
               <Select
                 label="Rebar Type"
                 value={formData.rebarTypeId}
+                required={isRequired}
                 onChange={(rebarTypeId) => setFormData({ ...formData, rebarTypeId })}
                 options={rebars.map((rebar) => ({
                   label: `${rebar.type} (${rebar.rebarEntries.length} entries)`,

@@ -22,7 +22,7 @@ export const RebarEditForm: React.FC<{
   const editMultipleRebars = useMutation(api.tasks.editing.rebars.editMultipleRebars);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isMultiEdit = rebars.length > 1;
+  const isRequired = rebars.length < 2;
   const rebar = rebars[0]; // For single edit, use the first rebar
 
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ export const RebarEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (isMultiEdit) {
+      if (!isRequired) {
         await editMultipleRebars({
           rebarIds: rebars.map((r) => r._id),
           ...formData
@@ -68,17 +68,12 @@ export const RebarEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Rebar', rebars.length)}</h2>
-          {isMultiEdit ? (
+          {isRequired ? (
+            <Label>{rebar?._id}</Label>
+          ) : (
             <div className="space-y-1">
               <Label>Editing {rebars.length} rebars</Label>
-              {rebars.map((r, index) => (
-                <div key={r._id} className="text-sm text-gray-600">
-                  {index + 1}. {r._id}
-                </div>
-              ))}
             </div>
-          ) : (
-            <Label>{rebar?._id}</Label>
           )}
         </div>
 
@@ -88,7 +83,7 @@ export const RebarEditForm: React.FC<{
               label="Type"
               value={formData.type}
               onChange={(type) => setFormData({ ...formData, type })}
-              required={shouldRequireField(isMultiEdit)}
+              required={isRequired}
             />
 
             <Select
@@ -99,6 +94,7 @@ export const RebarEditForm: React.FC<{
                 label: `${material.materialCategory} - ${material.exposureClass}`,
                 value: material._id
               }))}
+              required={isRequired}
             />
 
             <div>

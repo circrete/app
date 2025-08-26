@@ -17,7 +17,7 @@ export const GeometryEditForm: React.FC<{
   const editMultipleGeometries = useMutation(api.tasks.editing.geometries.editMultipleGeometries);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isMultiEdit = geometries.length > 1;
+  const isRequired = geometries.length < 2;
   const geometry = geometries[0]; // For single edit, use the first geometry
 
   const [formData, setFormData] = useState({
@@ -41,7 +41,7 @@ export const GeometryEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (isMultiEdit) {
+      if (!isRequired) {
         await editMultipleGeometries({
           geometryIds: geometries.map((g) => g._id),
           ...formData
@@ -65,17 +65,12 @@ export const GeometryEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Geometry', geometries.length)}</h2>
-          {isMultiEdit ? (
+          {isRequired ? (
+            <Label>{geometry?._id}</Label>
+          ) : (
             <div className="space-y-1">
               <Label>Editing {geometries.length} geometries</Label>
-              {geometries.map((g, index) => (
-                <div key={g._id} className="text-sm text-gray-600">
-                  {index + 1}. {g._id}
-                </div>
-              ))}
             </div>
-          ) : (
-            <Label>{geometry?._id}</Label>
           )}
         </div>
 
@@ -86,13 +81,13 @@ export const GeometryEditForm: React.FC<{
                 label="Type"
                 value={formData.type}
                 onChange={(type) => setFormData({ ...formData, type })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Component Category"
                 value={formData.componentCategory}
                 onChange={(componentCategory) => setFormData({ ...formData, componentCategory })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Length"
@@ -100,7 +95,7 @@ export const GeometryEditForm: React.FC<{
                 step={0.1}
                 value={formData.length}
                 onChange={(length) => setFormData({ ...formData, length })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
             </div>
 
@@ -112,6 +107,7 @@ export const GeometryEditForm: React.FC<{
                 label: `${cs.width}x${cs.height} - ${cs.type}`,
                 value: cs._id
               }))}
+              required={isRequired}
             />
           </div>
           <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />

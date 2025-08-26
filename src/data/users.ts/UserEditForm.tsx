@@ -15,7 +15,7 @@ export const UserEditForm: React.FC<{
   const editMultipleUsers = useMutation(api.tasks.editing.users.editMultipleUsers);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isMultiEdit = users.length > 1;
+  const isRequired = users.length < 2;
   const user = users[0]; // For single edit, use the first user
 
   const [formData, setFormData] = useState({
@@ -41,7 +41,7 @@ export const UserEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (isMultiEdit) {
+      if (!isRequired) {
         await editMultipleUsers({
           userIds: users.map((u) => u._id),
           ...formData
@@ -69,17 +69,12 @@ export const UserEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('User', users.length)}</h2>
-          {isMultiEdit ? (
+          {isRequired ? (
+            <Label>{user?._id}</Label>
+          ) : (
             <div className="space-y-1">
               <Label>Editing {users.length} users</Label>
-              {users.map((u, index) => (
-                <div key={u._id} className="text-sm text-gray-600">
-                  {index + 1}. {u._id}
-                </div>
-              ))}
             </div>
-          ) : (
-            <Label>{user?._id}</Label>
           )}
         </div>
 
@@ -90,31 +85,31 @@ export const UserEditForm: React.FC<{
                 label="Name"
                 value={formData.name}
                 onChange={(name) => setFormData({ ...formData, name })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Company"
                 value={formData.company}
                 onChange={(company) => setFormData({ ...formData, company })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Address"
                 value={formData.address}
                 onChange={(address) => setFormData({ ...formData, address })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="Email"
                 value={formData.mail}
                 onChange={(mail) => setFormData({ ...formData, mail })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
               <Input
                 label="User Category"
                 value={formData.userCategory}
                 onChange={(userCategory) => setFormData({ ...formData, userCategory })}
-                required={shouldRequireField(isMultiEdit)}
+                required={isRequired}
               />
             </div>
           </div>
