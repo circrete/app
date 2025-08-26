@@ -1,0 +1,32 @@
+{
+  "name": "app.circrete",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "concurrently -n 'backend,web' -c '#fcba03,#9e0f0d' 'bun run dev:backend' 'bun run dev:frontend' ",
+    "build": "tsc && vite build",
+    "dev:backend": "bunx convex dev",
+    "dev:frontend": "vite --open",
+    "predev": "convex dev --once"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "@tailwindcss/vite": "^4.1.12",
+    "ag-grid-react": "^34.1.2",
+    "convex": "1.23.0",
+    "prettier": "3.5.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router": "^7.8.2",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.20.0",
+    "@types/node": "^18.17.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "~5.0.3",
+    "vite": "^5.4.12",
+    "concurrently": "^9.1.2"
+  }
+}
