@@ -31,7 +31,7 @@ export const Input = <K extends number | string>({
         step={number ? step : undefined}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value as K)}
-        onBlur={() => onChange(inputValue as K)}
+        onBlur={() => onChange((number ? Number(inputValue) : inputValue) as K)}
         onKeyDown={(e) => e.key === 'Enter' && onChange(inputValue as K)}
         className="w-full p-2 border border-gray-300 rounded-md"
         placeholder={label}
