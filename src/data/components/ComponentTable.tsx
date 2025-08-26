@@ -1,4 +1,5 @@
 import { CustomCellRendererProps } from 'ag-grid-react';
+import { GridReadyEvent } from 'ag-grid-community';
 import { type DataModel } from '../../../convex/_generated/dataModel';
 import { GeneralTable } from '../GeneralTable';
 import { UserChip } from '../users.ts/UserChip';
@@ -7,7 +8,7 @@ import { getComponentTableData } from './componentLogic';
 import { GeometryChip } from '../geometries/GeometryChip';
 import { copyIdCellTable } from '../helpers/copyId';
 import { Drawer } from '../../uicomponents/Drawer';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ComponentEditForm } from './ComponentEditForm';
 import { ChipWrapper } from '../../uicomponents/Chip';
 import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
@@ -21,15 +22,30 @@ export const ComponentTable: React.FC<{
   crossSections: DataModel['crossSections']['document'][];
   materials: DataModel['materials']['document'][];
 }> = ({ components, buildings, users, geometryTypes, crossSections, materials }) => {
+  const gridRef = useRef<GridReadyEvent<any>['api'] | null>(null);
+  const [showForm, setShowForm] = useState(false);
   const [selectedComponents, setSelectedComponents] = useState<DataModel['components']['document'][]>([]);
-  const [selectedComponentForEditing, setSelectedComponentForEditing] = useState<
-    DataModel['components']['document'] | null
-  >(null);
+
+  const onClose = () => {
+    setSelectedComponents([]);
+    setShowForm(false);
+    if (gridRef.current) gridRef.current!.deselectAll();
+  };
+
+  const rowData = useMemo(
+    () => components.map((c) => getComponentTableData(c, buildings, users, geometryTypes)),
+    [components, buildings, users, geometryTypes]
+  );
+
   return (
-    <GeneralTable>
+    <GeneralTable
+      addMethod={!showForm ? () => setShowForm(true) : undefined}
+      selectedItemsCount={selectedComponents.length}
+    >
       <AgGridWrapper
-        drawerOpen={Boolean(selectedComponentForEditing)}
-        rowData={components.map((c) => getComponentTableData(c, buildings, users, geometryTypes))}
+        drawerOpen={showForm}
+        rowData={rowData}
+        onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
           copyIdCellTable as any,
           { field: 'condition' },
@@ -60,21 +76,28 @@ export const ComponentTable: React.FC<{
           {
             field: 'edit',
             cellRenderer: (u: CustomCellRendererProps) => (
-              <ChipWrapper onClick={() => setSelectedComponentForEditing(u.data)}>Edit</ChipWrapper>
+              <ChipWrapper
+                onClick={() => {
+                  setSelectedComponents([u.data]);
+                  setShowForm(true);
+                }}
+              >
+                Edit
+              </ChipWrapper>
             )
           }
         ]}
         onSelectionChanged={(e) => setSelectedComponents(e.api.getSelectedRows())}
       />
-      <Drawer isOpen={Boolean(selectedComponentForEditing)}>
+      <Drawer isOpen={showForm}>
         <ComponentEditForm
-          component={selectedComponentForEditing ?? null}
+          components={selectedComponents}
           buildings={buildings}
           users={users}
           geometries={geometryTypes}
-          onClose={() => setSelectedComponentForEditing(null)}
-          crossSections={crossSections ?? []}
-          materials={materials ?? []}
+          crossSections={crossSections}
+          materials={materials}
+          onClose={onClose}
         />
       </Drawer>
     </GeneralTable>

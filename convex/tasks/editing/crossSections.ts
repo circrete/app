@@ -72,3 +72,44 @@ export const editCrossSection = mutation({
     return { success: true };
   }
 });
+
+export const editMultipleCrossSections = mutation({
+  args: {
+    crossSectionIds: v.array(v.id('crossSections')),
+    type: v.optional(v.string()),
+    crossSectionCategory: v.optional(v.string()),
+    height: v.optional(v.float64()),
+    width: v.optional(v.float64()),
+    concreteMaterialTypeId: v.optional(v.string()),
+    rebarTypeId: v.optional(v.string()),
+    moment: v.optional(v.float64()),
+    normal: v.optional(v.float64()),
+    shear: v.optional(v.float64()),
+    preStressStrandType: v.optional(
+      v.object({
+        amount: v.float64(),
+        date: v.string(),
+        force: v.float64(),
+        location: v.object({
+          height: v.float64(),
+          latitude: v.float64(),
+          longitude: v.float64()
+        }),
+        manufacturerId: v.optional(v.string()),
+        steelClass: v.string(),
+        steelDiameter: v.float64()
+      })
+    )
+  },
+  handler: async (ctx, args) => {
+    const { crossSectionIds, ...updateData } = args;
+
+    // strip args that are undefined from patch object
+    const patch = Object.fromEntries(Object.entries(updateData).filter(([_, v]) => v !== undefined));
+
+    for (const crossSectionId of crossSectionIds) {
+      await ctx.db.patch(crossSectionId, patch);
+    }
+    return { success: true };
+  }
+});

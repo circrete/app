@@ -56,23 +56,28 @@ export const editMultipleBuildings = mutation({
   args: {
     buildingIds: v.array(v.id('buildings')),
     type: v.optional(v.string()),
-    formerUse: v.optional(v.string())
+    formerUse: v.optional(v.string()),
+    address: v.optional(v.string()),
+    complexity: v.optional(v.number()),
+    gfa: v.optional(v.number()),
+    img: v.optional(v.string()),
+    ownerId: v.optional(v.string()),
+    location: v.optional(
+      v.object({
+        height: v.number(),
+        latitude: v.number(),
+        longitude: v.number()
+      })
+    )
   },
   handler: async (ctx, args) => {
-    for (const buildingId of args.buildingIds) {
-      await ctx.db.patch(buildingId, {
-        type: args.type,
-        formerUse: args.formerUse,
-        address: '',
-        complexity: 0,
-        gfa: 0,
-        img: '',
-        location: {
-          height: 0,
-          latitude: 0,
-          longitude: 0
-        }
-      });
+    const { buildingIds, ...updateData } = args;
+
+    // strip args that are undefined from patch object
+    const patch = Object.fromEntries(Object.entries(updateData).filter(([_, v]) => v !== undefined));
+
+    for (const buildingId of buildingIds) {
+      await ctx.db.patch(buildingId, patch);
     }
   }
 });

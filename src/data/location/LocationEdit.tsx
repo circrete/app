@@ -1,11 +1,18 @@
 import { Input } from '../../uicomponents/form/Input';
 import { LocationDataType } from './locationType';
 
+const getUpdatedLocation = (longitude: number = 0, latitude: number = 0, height: number = 0): LocationDataType => ({
+  longitude,
+  latitude,
+  height
+});
+
 export const LocationEdit: React.FC<{
   label?: string;
-  location: LocationDataType;
+  location: LocationDataType | undefined;
   onChange: (location: LocationDataType) => void;
-}> = ({ label, location, onChange }) => {
+  required: boolean;
+}> = ({ label, location, onChange, required }) => {
   return (
     <div>
       {<h3 className="text-lg font-semibold mb-3">{label ?? 'Location'}</h3>}
@@ -14,22 +21,27 @@ export const LocationEdit: React.FC<{
           label="Height"
           number
           step={0.01}
-          value={location.height}
-          onChange={(height: number) => onChange({ ...location, height })}
+          required={required}
+          value={location?.height ?? 0}
+          onChange={(height: number) => onChange(getUpdatedLocation(location?.longitude, location?.latitude, height))}
         />
         <Input
           label="Latitude"
           number
           step={0.01}
-          value={location.latitude}
-          onChange={(latitude: number) => onChange({ ...location, latitude })}
+          required={required}
+          value={location?.latitude ?? 0}
+          onChange={(latitude: number) => onChange(getUpdatedLocation(location?.longitude, latitude, location?.height))}
         />
         <Input
           label="Longitude"
           number
           step={0.01}
-          value={location.longitude}
-          onChange={(longitude: number) => onChange({ ...location, longitude })}
+          required={required}
+          value={location?.longitude ?? 0}
+          onChange={(longitude: number) =>
+            onChange(getUpdatedLocation(longitude, location?.latitude, location?.height))
+          }
         />
       </div>
     </div>

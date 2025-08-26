@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Label } from './Label';
 
 export const Input = <K extends number | string>({
@@ -11,19 +12,29 @@ export const Input = <K extends number | string>({
   label?: string;
   number?: boolean;
   step?: number;
-  value: K;
+  value: K | undefined;
   onChange: (value: K) => void;
-  required?: boolean;
+  required: boolean;
 }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
+
   return (
     <div>
       {label && <Label>{label}</Label>}
       <input
+        key={value}
         type={number ? 'number' : 'text'}
         step={number ? step : undefined}
-        value={value}
-        onChange={(e) => onChange((number ? parseFloat(e.target.value) : e.target.value) as K)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value as K)}
+        onBlur={() => onChange(inputValue as K)}
+        onKeyDown={(e) => e.key === 'Enter' && onChange(inputValue as K)}
         className="w-full p-2 border border-gray-300 rounded-md"
+        placeholder={label}
         required={required}
       />
     </div>

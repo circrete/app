@@ -9,5 +9,9 @@ export const BuildingEditFormPage: React.FC<{
   const { buildingId } = useParams();
   const building = buildings.find((b) => b._id === buildingId);
 
-  return <BuildingEditForm building={building ?? null} users={users} />;
+  if (!building) {
+    return <div>Building not found</div>;
+  }
+
+  return <BuildingEditForm buildings={[building]} users={users} />;
 };

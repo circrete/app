@@ -1,9 +1,10 @@
-import { AgGridReact, CustomCellRendererProps } from 'ag-grid-react';
+import { CustomCellRendererProps } from 'ag-grid-react';
+import { GridReadyEvent } from 'ag-grid-community';
 import { type DataModel } from '../../../convex/_generated/dataModel';
 import { GeneralTable } from '../GeneralTable';
 import { copyIdCellTable } from '../helpers/copyId';
 import { UserEditForm } from './UserEditForm';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Drawer } from '../../uicomponents/Drawer';
 import { ChipWrapper } from '../../uicomponents/Chip';
 import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
@@ -11,14 +12,22 @@ import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
 export const UserTable: React.FC<{
   users: DataModel['users']['document'][];
 }> = ({ users }) => {
+  const gridRef = useRef<GridReadyEvent<any>['api'] | null>(null);
+  const [showForm, setShowForm] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState<DataModel['users']['document'][]>([]);
-  const [selectedUserForEditing, setSelectedUserForEditing] = useState<DataModel['users']['document'] | null>(null);
+
+  const onClose = () => {
+    setSelectedUsers([]);
+    setShowForm(false);
+    if (gridRef.current) gridRef.current!.deselectAll();
+  };
 
   return (
-    <GeneralTable>
+    <GeneralTable addMethod={!showForm ? () => setShowForm(true) : undefined} selectedItemsCount={selectedUsers.length}>
       <AgGridWrapper
-        drawerOpen={Boolean(selectedUserForEditing)}
+        drawerOpen={showForm}
         rowData={users}
+        onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
           copyIdCellTable as any,
           { field: 'name' },
@@ -29,14 +38,21 @@ export const UserTable: React.FC<{
           {
             field: 'edit',
             cellRenderer: (u: CustomCellRendererProps) => (
-              <ChipWrapper onClick={() => setSelectedUserForEditing(u.data)}>Edit</ChipWrapper>
+              <ChipWrapper
+                onClick={() => {
+                  setSelectedUsers([u.data]);
+                  setShowForm(true);
+                }}
+              >
+                Edit
+              </ChipWrapper>
             )
           }
         ]}
         onSelectionChanged={(e) => setSelectedUsers(e.api.getSelectedRows())}
       />
-      <Drawer isOpen={Boolean(selectedUserForEditing)}>
-        <UserEditForm user={selectedUserForEditing ?? null} onClose={() => setSelectedUserForEditing(null)} />
+      <Drawer isOpen={showForm}>
+        <UserEditForm users={selectedUsers} onClose={onClose} />
       </Drawer>
     </GeneralTable>
   );

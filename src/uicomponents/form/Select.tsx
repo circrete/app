@@ -3,7 +3,7 @@ import { Label } from './Label';
 export const Select: React.FC<{
   options: { label: string; value: string }[];
   label?: string;
-  value: string;
+  value: string | undefined;
   required?: boolean;
   onChange: (value: string) => void;
 }> = ({ label, options, value, required, onChange }) => {
@@ -12,6 +12,7 @@ export const Select: React.FC<{
       {label && <Label>{label}</Label>}
       <select
         className="w-full p-2 border border-gray-300 rounded-md"
+        key={value}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
@@ -21,6 +22,9 @@ export const Select: React.FC<{
             {option.label}
           </option>
         ))}
+        <option disabled selected value={undefined}>
+          none
+        </option>
       </select>
     </div>
   );

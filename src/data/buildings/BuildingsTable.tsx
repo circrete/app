@@ -1,4 +1,5 @@
 import { AgGridReact, CustomCellRendererProps } from 'ag-grid-react';
+import { GridReadyEvent } from 'ag-grid-community';
 import { type DataModel } from '../../../convex/_generated/dataModel';
 import { GeneralTable } from '../GeneralTable';
 // import { buildingTableUIItems } from './buildingUI';
@@ -6,8 +7,7 @@ import { getBuildingTableData } from './buildingLogic';
 import { UserChip } from '../users.ts/UserChip';
 import { copyIdCellTable } from '../helpers/copyId';
 import { BuildingEditForm } from './BuildingEditForm';
-import { BuildingEditFormModal } from './BuildingEditModal';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Drawer } from '../../uicomponents/Drawer';
 import { ChipWrapper } from '../../uicomponents/Chip';
 import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
@@ -17,15 +17,27 @@ export const BuildingTable: React.FC<{
   buildings: DataModel['buildings']['document'][];
   users: DataModel['users']['document'][];
 }> = ({ buildings, users }) => {
+  const gridRef = useRef<GridReadyEvent<any>['api'] | null>(null);
+  const [showForm, setShowForm] = useState(false);
   const [selectedBuildings, setSelectedBuildings] = useState<DataModel['buildings']['document'][]>([]);
-  const [selectedBuildingForEditing, setSelectedBuildingForEditing] = useState<
-    DataModel['buildings']['document'] | null
-  >(null);
+
+  const onClose = () => {
+    setSelectedBuildings([]);
+    setShowForm(false);
+    if (gridRef.current) gridRef.current!.deselectAll();
+  };
+
+  const rowData = useMemo(() => buildings.map((b) => getBuildingTableData(b, users)), [buildings, users]);
+
   return (
-    <GeneralTable>
+    <GeneralTable
+      addMethod={!showForm ? () => setShowForm(true) : undefined}
+      selectedItemsCount={selectedBuildings.length}
+    >
       <AgGridWrapper
-        drawerOpen={Boolean(selectedBuildingForEditing)}
-        rowData={buildings.map((b) => getBuildingTableData(b, users))}
+        drawerOpen={showForm}
+        rowData={rowData}
+        onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
           copyIdCellTable as any,
           { field: 'formerUse' },
@@ -43,18 +55,21 @@ export const BuildingTable: React.FC<{
           {
             field: 'edit',
             cellRenderer: (u: CustomCellRendererProps) => (
-              <ChipWrapper onClick={() => setSelectedBuildingForEditing(u.data)}>Edit</ChipWrapper>
+              <ChipWrapper
+                onClick={() => {
+                  setSelectedBuildings([u.data]);
+                  setShowForm(true);
+                }}
+              >
+                Edit
+              </ChipWrapper>
             )
           }
         ]}
         onSelectionChanged={(e) => setSelectedBuildings(e.api.getSelectedRows())}
       />
-      <Drawer isOpen={Boolean(selectedBuildingForEditing)}>
-        <BuildingEditForm
-          building={selectedBuildingForEditing ?? null}
-          users={users}
-          onClose={() => setSelectedBuildingForEditing(null)}
-        />
+      <Drawer isOpen={showForm}>
+        <BuildingEditForm buildings={selectedBuildings} users={users} onClose={onClose} />
       </Drawer>
     </GeneralTable>
   );

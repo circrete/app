@@ -36,3 +36,25 @@ export const editUser = mutation({
     return { success: true };
   }
 });
+
+export const editMultipleUsers = mutation({
+  args: {
+    userIds: v.array(v.id('users')),
+    name: v.optional(v.string()),
+    company: v.optional(v.string()),
+    address: v.optional(v.string()),
+    mail: v.optional(v.string()),
+    userCategory: v.optional(v.string())
+  },
+  handler: async (ctx, args) => {
+    const { userIds, ...updateData } = args;
+
+    // strip args that are undefined from patch object
+    const patch = Object.fromEntries(Object.entries(updateData).filter(([_, v]) => v !== undefined));
+
+    for (const userId of userIds) {
+      await ctx.db.patch(userId, patch);
+    }
+    return { success: true };
+  }
+});

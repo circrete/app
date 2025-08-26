@@ -13,7 +13,7 @@ export const BuildingEditFormModal: React.FC<{
     <>
       <ChipWrapper onClick={open}>Edit</ChipWrapper>
       <Modal isOpen={isOpen} onClose={close}>
-        <BuildingEditForm building={building} users={users} onClose={close} />
+        <BuildingEditForm buildings={[building]} users={users} onClose={close} />
       </Modal>
     </>
   );

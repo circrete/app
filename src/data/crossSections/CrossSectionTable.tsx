@@ -1,4 +1,5 @@
 import { AgGridReact, CustomCellRendererProps } from 'ag-grid-react';
+import { GridReadyEvent } from 'ag-grid-community';
 import { type DataModel } from '../../../convex/_generated/dataModel';
 import { GeneralTable } from '../GeneralTable';
 import { getCrossSectionTableData } from './crossSectionLogic';
@@ -7,7 +8,7 @@ import { MaterialChip } from '../materials/MaterialChip';
 import { RebarChip } from '../rebars/RebarChip';
 import { copyIdCellTable } from '../helpers/copyId';
 import { CrossSectionEditForm } from './CrossSectionEditForm';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Drawer } from '../../uicomponents/Drawer';
 import { ChipWrapper } from '../../uicomponents/Chip';
 import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
@@ -18,16 +19,30 @@ export const CrossSectionTable: React.FC<{
   rebars: DataModel['rebars']['document'][];
   users: DataModel['users']['document'][];
 }> = ({ crossSections, materials, rebars, users }) => {
+  const gridRef = useRef<GridReadyEvent<any>['api'] | null>(null);
+  const [showForm, setShowForm] = useState(false);
   const [selectedCrossSections, setSelectedCrossSections] = useState<DataModel['crossSections']['document'][]>([]);
-  const [selectedCrossSectionForEditing, setSelectedCrossSectionForEditing] = useState<
-    DataModel['crossSections']['document'] | null
-  >(null);
+
+  const onClose = () => {
+    setSelectedCrossSections([]);
+    setShowForm(false);
+    if (gridRef.current) gridRef.current!.deselectAll();
+  };
+
+  const rowData = useMemo(
+    () => crossSections.map((cs) => getCrossSectionTableData(cs, materials, rebars, users)),
+    [crossSections, materials, users, rebars]
+  );
 
   return (
-    <GeneralTable>
+    <GeneralTable
+      addMethod={!showForm ? () => setShowForm(true) : undefined}
+      selectedItemsCount={selectedCrossSections.length}
+    >
       <AgGridWrapper
-        drawerOpen={Boolean(selectedCrossSectionForEditing)}
-        rowData={crossSections.map((cs) => getCrossSectionTableData(cs, materials, rebars, users))}
+        drawerOpen={showForm}
+        rowData={rowData}
+        onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
           copyIdCellTable as any,
           { field: 'type' },
@@ -52,19 +67,26 @@ export const CrossSectionTable: React.FC<{
           {
             field: 'edit',
             cellRenderer: (u: CustomCellRendererProps) => (
-              <ChipWrapper onClick={() => setSelectedCrossSectionForEditing(u.data)}>Edit</ChipWrapper>
+              <ChipWrapper
+                onClick={() => {
+                  setSelectedCrossSections([u.data]);
+                  setShowForm(true);
+                }}
+              >
+                Edit
+              </ChipWrapper>
             )
           }
         ]}
         onSelectionChanged={(e) => setSelectedCrossSections(e.api.getSelectedRows())}
       />
-      <Drawer isOpen={Boolean(selectedCrossSectionForEditing)}>
+      <Drawer isOpen={showForm}>
         <CrossSectionEditForm
-          crossSection={selectedCrossSectionForEditing ?? null}
+          crossSections={selectedCrossSections}
           materials={materials}
           rebars={rebars}
           users={users}
-          onClose={() => setSelectedCrossSectionForEditing(null)}
+          onClose={onClose}
         />
       </Drawer>
     </GeneralTable>

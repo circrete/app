@@ -5,102 +5,122 @@ import { api } from '../../../convex/_generated/api';
 import { Input } from '../../uicomponents/form/Input';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
 import { Label } from '../../uicomponents/form/Label';
+import { findCommonString, shouldRequireField, getMultiEditTitle } from '../helpers/multiEditHelpers';
 
 export const UserEditForm: React.FC<{
-  user: DataModel['users']['document'] | null;
+  users: DataModel['users']['document'][];
   onClose?: () => void;
-}> = ({ user, onClose }) => {
+}> = ({ users, onClose }) => {
   const editUser = useMutation(api.tasks.editing.users.editUser);
+  const editMultipleUsers = useMutation(api.tasks.editing.users.editMultipleUsers);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isMultiEdit = users.length > 1;
+  const user = users[0]; // For single edit, use the first user
+
   const [formData, setFormData] = useState({
-    name: user?.name || '',
-    company: user?.company || '',
-    address: user?.address || '',
-    mail: user?.mail || '',
-    userCategory: user?.userCategory || ''
+    name: findCommonString(users, 'name'),
+    company: findCommonString(users, 'company'),
+    address: findCommonString(users, 'address'),
+    mail: findCommonString(users, 'mail'),
+    userCategory: findCommonString(users, 'userCategory')
   });
 
   useEffect(() => {
-    if (user) {
-      setFormData({
-        name: user.name || '',
-        company: user.company || '',
-        address: user.address || '',
-        mail: user.mail || '',
-        userCategory: user.userCategory || ''
-      });
-    }
-  }, [user]);
+    setFormData({
+      name: findCommonString(users, 'name'),
+      company: findCommonString(users, 'company'),
+      address: findCommonString(users, 'address'),
+      mail: findCommonString(users, 'mail'),
+      userCategory: findCommonString(users, 'userCategory')
+    });
+  }, [users]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      if (!user) return;
-      await editUser({
-        userId: user._id,
-        ...formData
-      });
+      if (isMultiEdit) {
+        await editMultipleUsers({
+          userIds: users.map((u) => u._id),
+          ...formData
+        });
+      } else if (user) {
+        await editUser({
+          userId: user._id,
+          ...formData
+        });
+      }
       onClose?.();
     } catch (error) {
-      console.error('Failed to update user:', error);
+      console.error('Failed to update user(s):', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (users.length === 0) {
+    return <div className="w-[400px] text-white">No users selected</div>;
+  }
+
   return (
     <div className="p-6 overflow-y-auto h-full">
-      {user ? (
-        <div className="flex flex-col justify-start h-full gap-4">
-          <div className="flex-none">
-            <h2 className="text-xl font-bold mb-4">Edit User</h2>
-            <Label>{user?._id}</Label>
-          </div>
-
-          <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
-            <div className="flex-1 overflow-y-auto flex flex-col gap-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input
-                  label="Name"
-                  value={formData.name}
-                  onChange={(name) => setFormData({ ...formData, name })}
-                  required
-                />
-                <Input
-                  label="Company"
-                  value={formData.company}
-                  onChange={(company) => setFormData({ ...formData, company })}
-                  required
-                />
-                <Input
-                  label="Address"
-                  value={formData.address}
-                  onChange={(address) => setFormData({ ...formData, address })}
-                  required
-                />
-                <Input
-                  label="Email"
-                  value={formData.mail}
-                  onChange={(mail) => setFormData({ ...formData, mail })}
-                  required
-                />
-                <Input
-                  label="User Category"
-                  value={formData.userCategory}
-                  onChange={(userCategory) => setFormData({ ...formData, userCategory })}
-                  required
-                />
-              </div>
+      <div className="flex flex-col justify-start h-full gap-4">
+        <div className="flex-none">
+          <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('User', users.length)}</h2>
+          {isMultiEdit ? (
+            <div className="space-y-1">
+              <Label>Editing {users.length} users</Label>
+              {users.map((u, index) => (
+                <div key={u._id} className="text-sm text-gray-600">
+                  {index + 1}. {u._id}
+                </div>
+              ))}
             </div>
-            <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />
-          </form>
+          ) : (
+            <Label>{user?._id}</Label>
+          )}
         </div>
-      ) : (
-        <div className="w-[400px] text-white">*</div>
-      )}
+
+        <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
+          <div className="flex-1 overflow-y-auto flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                label="Name"
+                value={formData.name}
+                onChange={(name) => setFormData({ ...formData, name })}
+                required={shouldRequireField(isMultiEdit)}
+              />
+              <Input
+                label="Company"
+                value={formData.company}
+                onChange={(company) => setFormData({ ...formData, company })}
+                required={shouldRequireField(isMultiEdit)}
+              />
+              <Input
+                label="Address"
+                value={formData.address}
+                onChange={(address) => setFormData({ ...formData, address })}
+                required={shouldRequireField(isMultiEdit)}
+              />
+              <Input
+                label="Email"
+                value={formData.mail}
+                onChange={(mail) => setFormData({ ...formData, mail })}
+                required={shouldRequireField(isMultiEdit)}
+              />
+              <Input
+                label="User Category"
+                value={formData.userCategory}
+                onChange={(userCategory) => setFormData({ ...formData, userCategory })}
+                required={shouldRequireField(isMultiEdit)}
+              />
+            </div>
+          </div>
+          <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />
+        </form>
+      </div>
     </div>
   );
 };

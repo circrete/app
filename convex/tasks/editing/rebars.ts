@@ -44,3 +44,30 @@ export const editRebar = mutation({
     return { success: true };
   }
 });
+
+export const editMultipleRebars = mutation({
+  args: {
+    rebarIds: v.array(v.id('rebars')),
+    type: v.optional(v.string()),
+    rebarEntries: v.optional(
+      v.array(
+        v.object({
+          rebarAmount: v.float64(),
+          rebarDiameter: v.float64()
+        })
+      )
+    ),
+    rebarMaterialId: v.optional(v.string())
+  },
+  handler: async (ctx, args) => {
+    const { rebarIds, ...updateData } = args;
+
+    // strip args that are undefined from patch object
+    const patch = Object.fromEntries(Object.entries(updateData).filter(([_, v]) => v !== undefined));
+
+    for (const rebarId of rebarIds) {
+      await ctx.db.patch(rebarId, patch);
+    }
+    return { success: true };
+  }
+});

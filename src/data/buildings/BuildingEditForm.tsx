@@ -8,59 +8,77 @@ import { Input } from '../../uicomponents/form/Input';
 import { LocationEdit } from '../location/LocationEdit';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
 import { Label } from '../../uicomponents/form/Label';
+import { findCommonString, findCommonNumber, findCommonLocation, getMultiEditTitle } from '../helpers/multiEditHelpers';
 
 export const BuildingEditForm: React.FC<{
-  building: DataModel['buildings']['document'] | null;
+  buildings: DataModel['buildings']['document'][];
   users: DataModel['users']['document'][];
   onClose?: () => void;
-}> = ({ building, users, onClose }) => {
+}> = ({ buildings, users, onClose }) => {
   const editBuilding = useMutation(api.tasks.editing.buildings.editBuilding);
+  const editMultipleBuildings = useMutation(api.tasks.editing.buildings.editMultipleBuildings);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isRequired = buildings.length < 2;
+  const building = buildings[0]; // For single edit, use the first building
+
   const [formData, setFormData] = useState({
-    type: building?.type,
-    formerUse: building?.formerUse,
-    address: building?.address,
-    complexity: building?.complexity,
-    gfa: building?.gfa,
-    img: building?.img,
-    location: building?.location || { height: 0, latitude: 0, longitude: 0 },
-    ownerId: building?.ownerId
+    type: findCommonString(buildings, 'type'),
+    formerUse: findCommonString(buildings, 'formerUse'),
+    address: findCommonString(buildings, 'address'),
+    complexity: findCommonNumber(buildings, 'complexity'),
+    gfa: findCommonNumber(buildings, 'gfa'),
+    img: findCommonString(buildings, 'img'),
+    location: findCommonLocation(buildings, 'location'),
+    ownerId: findCommonString(buildings, 'ownerId')
   });
 
   useEffect(() => {
     setFormData({
-      type: building?.type,
-      formerUse: building?.formerUse,
-      address: building?.address,
-      complexity: building?.complexity,
-      gfa: building?.gfa,
-      img: building?.img,
-      location: building?.location || { height: 0, latitude: 0, longitude: 0 },
-      ownerId: building?.ownerId
+      type: findCommonString(buildings, 'type'),
+      formerUse: findCommonString(buildings, 'formerUse'),
+      address: findCommonString(buildings, 'address'),
+      complexity: findCommonNumber(buildings, 'complexity'),
+      gfa: findCommonNumber(buildings, 'gfa'),
+      img: findCommonString(buildings, 'img'),
+      location: findCommonLocation(buildings, 'location'),
+      ownerId: findCommonString(buildings, 'ownerId')
     });
-  }, [building]);
+  }, [buildings]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      if (!building) return;
-      await editBuilding({
-        buildingId: building._id,
-        type: formData.type,
-        formerUse: formData.formerUse,
-        address: formData.address,
-        complexity: formData.complexity,
-        gfa: formData.gfa,
-        img: formData.img,
-        location: formData.location,
-        ownerId: formData.ownerId
-      });
+      if (!isRequired) {
+        await editMultipleBuildings({
+          buildingIds: buildings.map((b) => b._id),
+          type: formData.type,
+          formerUse: formData.formerUse,
+          address: formData.address,
+          complexity: formData.complexity,
+          gfa: formData.gfa,
+          img: formData.img,
+          location: formData.location,
+          ownerId: formData.ownerId
+        });
+      } else if (building) {
+        await editBuilding({
+          buildingId: building._id,
+          type: formData.type,
+          formerUse: formData.formerUse,
+          address: formData.address,
+          complexity: formData.complexity,
+          gfa: formData.gfa,
+          img: formData.img,
+          location: formData.location,
+          ownerId: formData.ownerId
+        });
+      }
       onClose?.();
     } catch (error) {
-      console.error('Failed to update building:', error);
+      console.error('Failed to update building(s):', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -68,78 +86,86 @@ export const BuildingEditForm: React.FC<{
 
   return (
     <div className="p-6 overflow-y-auto h-full">
-      {building ? (
-        <div className="flex flex-col justify-start h-full gap-4">
-          <div className="flex-none">
-            <h2 className="text-xl font-bold mb-4">Edit Building</h2>
+      <div className="flex flex-col justify-start h-full gap-4">
+        <div className="flex-none">
+          <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Building', buildings.length)}</h2>
+          {isRequired ? (
             <Label>{building?._id}</Label>
-          </div>
-
-          <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
-            <div className="flex-1 overflow-y-auto flex flex-col gap-4">
-              <Input
-                label="Building Type"
-                value={formData.type ?? ''}
-                onChange={(type) => setFormData({ ...formData, type })}
-                required
-              />
-              <Input
-                label="Former Use"
-                value={formData.formerUse ?? ''}
-                onChange={(formerUse) => setFormData({ ...formData, formerUse })}
-                required
-              />
-              <Input
-                label="Address"
-                value={formData.address ?? ''}
-                onChange={(address) => setFormData({ ...formData, address })}
-                required
-              />
-              <Select
-                label="Owner"
-                value={formData.ownerId ?? ''}
-                onChange={(ownerId) => setFormData({ ...formData, ownerId })}
-                required
-                options={users.map((user) => ({ label: getUserString(user), value: user._id }))}
-              />
-              <Input
-                label="Complexity"
-                number
-                step={0.1}
-                value={formData.complexity ?? 0}
-                onChange={(complexity) => setFormData({ ...formData, complexity })}
-                required
-              />
-              <Input
-                label="GFA"
-                number
-                step={0.1}
-                value={formData.gfa ?? 0}
-                onChange={(gfa) => setFormData({ ...formData, gfa })}
-                required
-              />
-
-              <div>
-                <label className="block text-sm font-medium mb-1">Image URL</label>
-                <input
-                  type="text"
-                  value={formData.img}
-                  onChange={(e) => setFormData({ ...formData, img: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-md"
-                />
-              </div>
-
-              <LocationEdit
-                location={formData.location}
-                onChange={(location) => setFormData({ ...formData, location })}
-              />
-              <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />
+          ) : (
+            <div className="space-y-1">
+              <Label>Editing {buildings.length} buildings</Label>
+              {buildings.map((b, index) => (
+                <div key={b._id} className="text-sm text-gray-600">
+                  {index + 1}. {b._id}
+                </div>
+              ))}
             </div>
-          </form>
+          )}
         </div>
-      ) : (
-        <div className="w-[400px] text-white">*</div>
-      )}
+
+        <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
+          <div className="flex-1 overflow-y-auto flex flex-col gap-4">
+            <Input
+              label="Building Type"
+              value={formData.type ?? ''}
+              onChange={(type) => setFormData({ ...formData, type })}
+              required={isRequired}
+            />
+            <Input
+              label="Former Use"
+              value={formData.formerUse ?? ''}
+              onChange={(formerUse) => setFormData({ ...formData, formerUse })}
+              required={isRequired}
+            />
+            <Input
+              label="Address"
+              value={formData.address ?? ''}
+              onChange={(address) => setFormData({ ...formData, address })}
+              required={isRequired}
+            />
+            <Select
+              label="Owner"
+              value={formData.ownerId ?? ''}
+              onChange={(ownerId) => setFormData({ ...formData, ownerId })}
+              required={isRequired}
+              options={users.map((user) => ({ label: getUserString(user), value: user._id }))}
+            />
+            <Input
+              label="Complexity"
+              number
+              step={0.1}
+              value={formData.complexity ?? 0}
+              onChange={(complexity) => setFormData({ ...formData, complexity })}
+              required={isRequired}
+            />
+            <Input
+              label="GFA"
+              number
+              step={0.1}
+              value={formData.gfa ?? 0}
+              onChange={(gfa) => setFormData({ ...formData, gfa })}
+              required={isRequired}
+            />
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Image URL</label>
+              <input
+                type="text"
+                value={formData.img}
+                onChange={(e) => setFormData({ ...formData, img: e.target.value })}
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <LocationEdit
+              location={formData.location}
+              onChange={(location) => setFormData({ ...formData, location })}
+              required={false}
+            />
+          </div>
+          <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />
+        </form>
+      </div>
     </div>
   );
 };

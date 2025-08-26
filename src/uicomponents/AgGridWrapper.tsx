@@ -8,9 +8,9 @@ export const AgGridWrapper = <K extends DataModel[TableNames]['document']>({
   <div
     style={{
       maxWidth: drawerOpen ? 'calc(var(--breakpoint-2xl)-400px)' : 'calc(var(--breakpoint-2xl))',
-      marginRight: drawerOpen ? 16 : 0
+      paddingRight: drawerOpen ? 16 : 0
     }}
-    className="h-full w-full transition-all duration-400"
+    className="h-full w-full overflow-hidden transition-all duration-400"
   >
     <AgGridReact
       {...props}
