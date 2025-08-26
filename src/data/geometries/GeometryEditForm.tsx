@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useMutation } from 'convex/react';
 import { type DataModel } from '../../../convex/_generated/dataModel';
 import { api } from '../../../convex/_generated/api';
-import { Select } from '../../uicomponents/form/Select';
 import { Input } from '../../uicomponents/form/Input';
+import { Select } from '../../uicomponents/form/Select';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
 import { Label } from '../../uicomponents/form/Label';
-import { findCommonString, findCommonNumber, shouldRequireField, getMultiEditTitle } from '../helpers/multiEditHelpers';
+import { findCommonString, findCommonNumber, getMultiEditTitle } from '../helpers/multiEditHelpers';
 
 export const GeometryEditForm: React.FC<{
   geometries: DataModel['geometries']['document'][];
   crossSections: DataModel['crossSections']['document'][];
   onClose?: () => void;
 }> = ({ geometries, crossSections, onClose }) => {
+  const createGeometry = useMutation(api.tasks.editing.geometries.createGeometry);
   const editGeometry = useMutation(api.tasks.editing.geometries.editGeometry);
   const editMultipleGeometries = useMutation(api.tasks.editing.geometries.editMultipleGeometries);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isRequired = geometries.length < 2;
+  const isAdd = geometries.length === 0;
   const geometry = geometries[0]; // For single edit, use the first geometry
 
   const [formData, setFormData] = useState({
@@ -41,7 +43,9 @@ export const GeometryEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (!isRequired) {
+      if (isAdd) {
+        await createGeometry(formData as any);
+      } else if (!isRequired) {
         await editMultipleGeometries({
           geometryIds: geometries.map((g) => g._id),
           ...formData
@@ -65,7 +69,9 @@ export const GeometryEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Geometry', geometries.length)}</h2>
-          {isRequired ? (
+          {isAdd ? (
+            <Label>Creating new geometry</Label>
+          ) : isRequired ? (
             <Label>{geometry?._id}</Label>
           ) : (
             <div className="space-y-1">

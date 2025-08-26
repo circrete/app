@@ -2,27 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useMutation } from 'convex/react';
 import { type DataModel } from '../../../convex/_generated/dataModel';
 import { api } from '../../../convex/_generated/api';
-import { Select } from '../../uicomponents/form/Select';
 import { Input } from '../../uicomponents/form/Input';
+import { Select } from '../../uicomponents/form/Select';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
 import { Label } from '../../uicomponents/form/Label';
-import {
-  findCommonString,
-  shouldRequireField,
-  getMultiEditTitle,
-  findDataForArrayField
-} from '../helpers/multiEditHelpers';
+import { findCommonString, findDataForArrayField, getMultiEditTitle } from '../helpers/multiEditHelpers';
 
 export const RebarEditForm: React.FC<{
   rebars: DataModel['rebars']['document'][];
   materials: DataModel['materials']['document'][];
   onClose?: () => void;
 }> = ({ rebars, materials, onClose }) => {
+  const createRebar = useMutation(api.tasks.editing.rebars.createRebar);
   const editRebar = useMutation(api.tasks.editing.rebars.editRebar);
   const editMultipleRebars = useMutation(api.tasks.editing.rebars.editMultipleRebars);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isRequired = rebars.length < 2;
+  const isAdd = rebars.length === 0;
   const rebar = rebars[0]; // For single edit, use the first rebar
 
   const [formData, setFormData] = useState({
@@ -44,7 +41,9 @@ export const RebarEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (!isRequired) {
+      if (isAdd) {
+        await createRebar(formData as any);
+      } else if (!isRequired) {
         await editMultipleRebars({
           rebarIds: rebars.map((r) => r._id),
           ...formData
@@ -68,7 +67,9 @@ export const RebarEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Rebar', rebars.length)}</h2>
-          {isRequired ? (
+          {isAdd ? (
+            <Label>Creating new rebar</Label>
+          ) : isRequired ? (
             <Label>{rebar?._id}</Label>
           ) : (
             <div className="space-y-1">

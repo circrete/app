@@ -29,11 +29,13 @@ export const ComponentEditForm: React.FC<{
   materials: DataModel['materials']['document'][];
   onClose: () => void;
 }> = ({ components, buildings, users, geometries, crossSections, materials, onClose }) => {
+  const createComponent = useMutation(api.tasks.editing.components.createComponent);
   const editComponent = useMutation(api.tasks.editing.components.editComponent);
   const editMultipleComponents = useMutation(api.tasks.editing.components.editMultipleComponents);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isRequired = components.length < 2;
+  const isAdd = components.length === 0;
   const component = components[0]; // For single edit, use the first component
 
   const [formData, setFormData] = useState({
@@ -85,7 +87,9 @@ export const ComponentEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (!isRequired) {
+      if (isAdd) {
+        await createComponent(formData as any);
+      } else if (!isRequired) {
         await editMultipleComponents({
           componentIds: components.map((c) => c._id),
           ...formData
@@ -109,7 +113,7 @@ export const ComponentEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Component', components.length)}</h2>
-          {isRequired ? <Label>{component?._id}</Label> : null}
+          {isAdd ? <Label>Creating new component</Label> : isRequired ? <Label>{component?._id}</Label> : null}
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">

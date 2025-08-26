@@ -15,11 +15,13 @@ export const BuildingEditForm: React.FC<{
   users: DataModel['users']['document'][];
   onClose?: () => void;
 }> = ({ buildings, users, onClose }) => {
+  const createBuilding = useMutation(api.tasks.editing.buildings.createBuilding);
   const editBuilding = useMutation(api.tasks.editing.buildings.editBuilding);
   const editMultipleBuildings = useMutation(api.tasks.editing.buildings.editMultipleBuildings);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isRequired = buildings.length < 2;
+  const isAdd = buildings.length === 0;
   const building = buildings[0]; // For single edit, use the first building
 
   const [formData, setFormData] = useState({
@@ -51,7 +53,12 @@ export const BuildingEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (!isRequired) {
+      if (isAdd) {
+        await createBuilding({
+          buildingType: formData.type || '',
+          formerUse: formData.formerUse || ''
+        });
+      } else if (!isRequired) {
         await editMultipleBuildings({
           buildingIds: buildings.map((b) => b._id),
           type: formData.type,
@@ -89,7 +96,9 @@ export const BuildingEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Building', buildings.length)}</h2>
-          {isRequired ? (
+          {isAdd ? (
+            <Label>Creating new building</Label>
+          ) : isRequired ? (
             <Label>{building?._id}</Label>
           ) : (
             <div className="space-y-1">

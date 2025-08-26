@@ -13,11 +13,13 @@ export const MaterialEditForm: React.FC<{
   crossSections: DataModel['crossSections']['document'][];
   onClose?: () => void;
 }> = ({ materials, crossSections, onClose }) => {
+  const createMaterial = useMutation(api.tasks.editing.materials.createMaterial);
   const editMaterial = useMutation(api.tasks.editing.materials.editMaterial);
   const editMultipleMaterials = useMutation(api.tasks.editing.materials.editMultipleMaterials);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isRequired = materials.length < 2;
+  const isAdd = materials.length === 0;
   const material = materials[0]; // For single edit, use the first material
 
   const [formData, setFormData] = useState({
@@ -55,7 +57,11 @@ export const MaterialEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (!isRequired) {
+      if (isAdd) {
+        console.log('formData', formData);
+
+        await createMaterial(formData as any);
+      } else if (!isRequired) {
         await editMultipleMaterials({
           materialIds: materials.map((m) => m._id),
           ...formData
@@ -79,7 +85,9 @@ export const MaterialEditForm: React.FC<{
       <div className="flex flex-col justify-start h-full gap-4">
         <div className="flex-none">
           <h2 className="text-xl font-bold mb-4">{getMultiEditTitle('Material', materials.length)}</h2>
-          {isRequired ? (
+          {isAdd ? (
+            <Label>Creating new material</Label>
+          ) : isRequired ? (
             <Label>{material?._id}</Label>
           ) : (
             <div className="space-y-1">

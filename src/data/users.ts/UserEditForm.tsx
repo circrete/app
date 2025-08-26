@@ -11,11 +11,13 @@ export const UserEditForm: React.FC<{
   users: DataModel['users']['document'][];
   onClose?: () => void;
 }> = ({ users, onClose }) => {
+  const createUser = useMutation(api.tasks.editing.users.createUser);
   const editUser = useMutation(api.tasks.editing.users.editUser);
   const editMultipleUsers = useMutation(api.tasks.editing.users.editMultipleUsers);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isRequired = users.length < 2;
+  const isAdd = users.length === 0;
   const user = users[0]; // For single edit, use the first user
 
   const [formData, setFormData] = useState({
@@ -41,7 +43,9 @@ export const UserEditForm: React.FC<{
     setIsSubmitting(true);
 
     try {
-      if (!isRequired) {
+      if (isAdd) {
+        await createUser(formData as any);
+      } else if (!isRequired) {
         await editMultipleUsers({
           userIds: users.map((u) => u._id),
           ...formData
@@ -59,10 +63,6 @@ export const UserEditForm: React.FC<{
       setIsSubmitting(false);
     }
   };
-
-  if (users.length === 0) {
-    return <div className="w-[400px] text-white">No users selected</div>;
-  }
 
   return (
     <div className="p-6 overflow-y-auto h-full">
