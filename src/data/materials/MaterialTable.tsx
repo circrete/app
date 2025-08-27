@@ -36,7 +36,6 @@ export const MaterialTable: React.FC<{
       selectedItemsCount={selectedMaterials.length}
     >
       <AgGridWrapper
-        drawerOpen={showForm}
         onGridReady={(e) => (gridRef.current = e.api)}
         rowData={rowData}
         columnDefs={[

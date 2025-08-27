@@ -37,7 +37,6 @@ export const GeometryTable: React.FC<{
       selectedItemsCount={selectedGeometries.length}
     >
       <AgGridWrapper
-        drawerOpen={showForm}
         onGridReady={(e) => (gridRef.current = e.api)}
         rowData={rowData}
         columnDefs={[

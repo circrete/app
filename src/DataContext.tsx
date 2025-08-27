@@ -8,8 +8,9 @@ import { CrossSectionTable } from './data/crossSections/CrossSectionTable';
 import { MaterialTable } from './data/materials/MaterialTable';
 import { RebarTable } from './data/rebars/RebarTable';
 import { GeometryTable } from './data/geometries/GeometryTable';
-import { BuildingEditForm } from './data/buildings/BuildingEditForm';
 import { BuildingEditFormPage } from './data/buildings/BuildingEditFormPage';
+import { ThreeScene } from './visualisation/ThreeScene';
+import { ComponentVisualisation } from './data/components/ComponentVisualisation';
 
 export const DataContext: React.FC = () => {
   const buildings = useQuery(api.queries.collect.buildings.getAll);
@@ -38,6 +39,19 @@ export const DataContext: React.FC = () => {
         }
       />
       <Route path={`/users`} element={<UserTable users={users ?? []} />} />
+      <Route
+        path={`/visualisation`}
+        element={
+          <ComponentVisualisation
+            components={components ?? []}
+            geometryTypes={geometries ?? []}
+            crossSections={crossSections ?? []}
+            buildings={buildings ?? []}
+            users={users ?? []}
+            materials={materials ?? []}
+          />
+        }
+      />
       <Route
         path={`/crossSections`}
         element={

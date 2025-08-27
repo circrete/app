@@ -25,7 +25,6 @@ export const UserTable: React.FC<{
   return (
     <GeneralTable addMethod={!showForm ? () => setShowForm(true) : undefined} selectedItemsCount={selectedUsers.length}>
       <AgGridWrapper
-        drawerOpen={showForm}
         rowData={users}
         onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
