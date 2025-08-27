@@ -11,12 +11,12 @@ const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ConvexProvider client={convex}>
-      <Header />
-      <Router>
+  <ConvexProvider client={convex}>
+    <Header />
+    <Router>
+      <StrictMode>
         <DataContext />
-      </Router>
-    </ConvexProvider>
-  </StrictMode>
+      </StrictMode>
+    </Router>
+  </ConvexProvider>
 );

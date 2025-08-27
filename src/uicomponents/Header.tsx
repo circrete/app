@@ -14,7 +14,8 @@ export const Header: React.FC = () => {
     { label: 'Materials', value: '/materials' },
     { label: 'Rebars', value: '/rebars' },
     { label: 'Geometries', value: '/geometries' },
-    { label: 'Users', value: '/users' }
+    { label: 'Users', value: '/users' },
+    { label: 'Visualisation', value: '/visualisation' }
   ];
 
   // Update current route when hash changes
@@ -35,8 +36,8 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <div className="max-h-[var(--header-height)] fixed top-0 left-0 right-0">
-      <div className="flex flex-row justify-between items-center p-4 bg-slate-900 text-slate-50 z-50 max-w-screen-2xl mx-auto h-[var(--header-height)]">
+    <div className="max-h-[calc(var(--header-height)-16px)] fixed top-0 left-0 right-0 bg-slate-800">
+      <div className="flex flex-row justify-between items-center text-slate-50 z-50 max-w-screen-2xl mx-auto px-4 h-[calc(var(--header-height)-16px)]">
         <div className="flex items-center gap-4">
           <img src={circreteLogo} alt="Logo" className="h-8 w-8" />
           <h1 className="text-2xl font-bold">Circrete App</h1>

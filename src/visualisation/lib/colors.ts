@@ -1,7 +1,9 @@
 export const getColorForCondition = (condition: string): string => {
+  console.log(condition);
+
   if (condition === 'Good') return '#3CB371';
-  if (condition === 'Repairable') return '#FFEB3B';
-  if (condition === 'Broken') return '#FF6666';
+  if (condition === 'Fair') return '#FFEB3B';
+  if (condition === 'Discard') return '#FF6666';
   return '#000000';
 };
 

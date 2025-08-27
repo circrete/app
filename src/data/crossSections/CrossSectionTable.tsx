@@ -40,7 +40,6 @@ export const CrossSectionTable: React.FC<{
       selectedItemsCount={selectedCrossSections.length}
     >
       <AgGridWrapper
-        drawerOpen={showForm}
         rowData={rowData}
         onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[

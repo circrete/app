@@ -37,6 +37,7 @@ export const getPreprocessedGeometryDatatForComponents = (
       realityPlanes: components.map((c) => ({
         position: xyzToWebgl(getLocalCoordinates(building, c.location)).map((v) => v * 1e3) as [number, number, number],
         yaw: (c.yaw * Math.PI) / 180,
+        componentId: c._id,
         color: hexToRgb(getColorForCondition(c.condition))
       })),
       abstractStackPlanes: components.map((c, i) => ({
@@ -45,6 +46,7 @@ export const getPreprocessedGeometryDatatForComponents = (
           (widthHeightLength.height + VERTICAL_SPACING) * i,
           0
         ],
+        componentId: c._id,
         yaw: 0,
         color: hexToRgb(getColorForCondition(c.condition))
       }))

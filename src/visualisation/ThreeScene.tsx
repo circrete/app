@@ -1,10 +1,11 @@
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import React, { Suspense, useMemo } from 'react';
+import { Bounds, OrbitControls } from '@react-three/drei';
+import React, { Suspense, useEffect, useMemo } from 'react';
 import { ComponentInstancesRenderer } from './renderers/ComponentInstancesRenderer';
 import { getPreprocessedGeometryDatatForComponents } from './utils/getGeometry';
 import { Axis } from './utils/Axis';
 import { DataModel } from '../../convex/_generated/dataModel';
+import { SelectToZoom } from './SelectToZoom';
 
 export const ThreeScene: React.FC<{
   components: DataModel['components']['document'][];
@@ -23,9 +24,7 @@ export const ThreeScene: React.FC<{
     return getPreprocessedGeometryDatatForComponents(components, building, geometries, crossSections);
   }, [components, buildings, geometries, crossSections]);
 
-  if (Object.keys(geometryDisplayMap).length === 0) return null;
-
-  const isAbstractPlanes = true;
+  const isAbstractPlanes = false;
   //  useMemo(
   //   () =>
   //     [NamedViews.ArchiveReusePotential, NamedViews.ArchiveProjectLevel, NamedViews.OnSiteTransport].includes(
@@ -35,8 +34,8 @@ export const ThreeScene: React.FC<{
   // );
 
   return (
-    <div className="w-full h-full">
-      <Canvas>
+    <div className="w-[100vw] h-[100vh] bg-slate-800">
+      <Canvas gl={{ preserveDrawingBuffer: true }}>
         <directionalLight position={[0, 10, 0]} intensity={1} />
         <directionalLight position={[10, 0, 0]} intensity={0.5} />
         <directionalLight position={[-10, 0, 0]} intensity={0.5} />
@@ -44,18 +43,18 @@ export const ThreeScene: React.FC<{
         <directionalLight position={[-10, -10, -10]} intensity={1} />
         <Suspense fallback={null}>
           <group name="slabGroup">
-            {/* <Bounds fit clip observe margin={1.2}> */}
-            {/* <SelectToZoom> */}
-            {Object.entries(geometryDisplayMap).map(([geometryId, geometryDisplay]) => (
-              <ComponentInstancesRenderer
-                key={`slab-${geometryId}`}
-                geometryTypeId={geometryId}
-                widthHeightLength={geometryDisplay.widthHeightLength}
-                planes={isAbstractPlanes ? geometryDisplay.abstractStackPlanes : geometryDisplay.realityPlanes}
-              />
-            ))}
-            {/* </SelectToZoom> */}
-            {/* </Bounds> */}
+            <Bounds fit clip observe margin={1.2}>
+              <SelectToZoom>
+                {Object.entries(geometryDisplayMap).map(([geometryId, geometryDisplay]) => (
+                  <ComponentInstancesRenderer
+                    key={`slab-${geometryId}`}
+                    geometryTypeId={geometryId}
+                    widthHeightLength={geometryDisplay.widthHeightLength}
+                    planes={isAbstractPlanes ? geometryDisplay.abstractStackPlanes : geometryDisplay.realityPlanes}
+                  />
+                ))}
+              </SelectToZoom>
+            </Bounds>
           </group>
         </Suspense>
         <OrbitControls makeDefault />

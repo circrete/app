@@ -33,7 +33,6 @@ export const RebarTable: React.FC<{
       selectedItemsCount={selectedRebars.length}
     >
       <AgGridWrapper
-        drawerOpen={showForm}
         rowData={rowData}
         onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
