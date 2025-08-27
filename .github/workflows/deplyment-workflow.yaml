@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   build:
+    if: github.actor != 'github-actions[bot]'  # prevent loop
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
