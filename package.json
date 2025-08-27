@@ -4,7 +4,6 @@
   "scripts": {
     "dev": "concurrently -n 'backend,web' -c '#fcba03,#9e0f0d' 'bun run dev:backend' 'bun run dev:frontend' ",
     "build": "tsc && vite build",
-    "build:production": "bunx --bun convex deploy --cmd 'bun --bun run build'",
     "dev:backend": "bunx --bun convex dev",
     "dev:frontend": "vite --open",
     "predev": "convex dev --once"
