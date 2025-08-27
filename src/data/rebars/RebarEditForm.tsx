@@ -44,11 +44,13 @@ export const RebarEditForm: React.FC<{
       if (isAdd) {
         await createRebar(formData as any);
       } else if (!isRequired) {
+        // @ts-ignore
         await editMultipleRebars({
           rebarIds: rebars.map((r) => r._id),
           ...formData
         });
       } else if (rebar) {
+        // @ts-ignore
         await editRebar({
           rebarId: rebar._id,
           ...formData

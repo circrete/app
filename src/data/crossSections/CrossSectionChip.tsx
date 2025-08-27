@@ -5,5 +5,6 @@ import { getCrossSectionString } from './crossSectionLogic';
 export const CrossSectionChip: React.FC<{
   crossSection: DataModel['crossSections']['document'] | undefined;
   materials: DataModel['materials']['document'][];
-}> = ({ crossSection, materials }) =>
-  crossSection ? <ChipWrapper>{getCrossSectionString(crossSection, materials)}</ChipWrapper> : undefined;
+}> = ({ crossSection, materials }) => (
+  <ChipWrapper>{crossSection ? getCrossSectionString(crossSection, materials) : undefined}</ChipWrapper>
+);

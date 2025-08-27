@@ -35,7 +35,6 @@ export const BuildingTable: React.FC<{
       selectedItemsCount={selectedBuildings.length}
     >
       <AgGridWrapper
-        drawerOpen={showForm}
         rowData={rowData}
         onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
