@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react()],
+  base: 'https://circrete.github.io/app/',
   build: {
     chunkSizeWarningLimit: 10000
   }
