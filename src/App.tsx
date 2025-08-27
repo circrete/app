@@ -1,5 +1,5 @@
 export const App = () => (
-  <main className="max-w-screen-2xl mx-auto px-4">
+  <main className="max-w-screen-2xl mx-auto p-4 bg-slate-800">
     <header>
       <h1>Circrete</h1>
       <p className="subtitle">Sustainable Building Solutions</p>
