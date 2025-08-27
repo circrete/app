@@ -33,7 +33,7 @@ jobs:
         run: bun install
 
       - name: Deploy Convex and build site
-        run: bunx convex deploy --cmd 'bun run build'
+        run: bunx convex deploy --cmd 'bun run build:production'
         env:
           CONVEX_DEPLOY_KEY: ${{ secrets.CONVEX_DEPLOY_KEY }}
 
