@@ -1,62 +1,39 @@
-import { useEffect, useState } from "react";
-import { faker } from "@faker-js/faker";
-import { DataModel, Id } from '../convex/_generated/dataModel';
-import { useMutation, useQuery } from 'convex/react';
-import { api } from '../convex/_generated/api';
+export const App = () => (
+  <main className="max-w-screen-2xl mx-auto px-4">
+    <header>
+      <h1>Circrete</h1>
+      <p className="subtitle">Sustainable Building Solutions</p>
+    </header>
 
-// For demo purposes. In a real app, you'd have real user data.
-const NAME = getOrSetFakeName();
+    <section className=" flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
+        <h3 className="text-xl font-bold">
+          Circrete operates as a consultant for building owners, demolition companies and architects.
+        </h3>
 
-export default function App() {
-  // TODO: Add mutation hook here.
-  const createBuilding = useMutation(api.tasks.editing.buildings.createBuilding);
-
-  return (
-    <main className="chat">
-      <header>
-        <h1>Convex Chat</h1>
-        <p>
-          Connected as <strong>{NAME}</strong>
-        </p>
-      </header>
-      {messages?.map((message) => (
-        <article key={message._id} className={message.formerUse === NAME ? 'message-mine' : ''}>
-          <div>{message.formerUse}</div>
-
-          <p>{message.type}</p>
-        </article>
-      ))}
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          await createBuilding({ formerUse: NAME, buildingType: newMessageText });
-          setNewMessageText('');
-        }}
-      >
-        <input
-          value={newMessageText}
-          onChange={async (e) => {
-            const text = e.target.value;
-            setNewMessageText(text);
-          }}
-          placeholder="Write a message…"
-          autoFocus
-        />
-        <button type="submit" disabled={!newMessageText}>
-          Send
-        </button>
-      </form>
-    </main>
-  );
-}
-
-function getOrSetFakeName() {
-  const NAME_KEY = "tutorial_name";
-  const name = sessionStorage.getItem(NAME_KEY);
-  if (!name) {
-    const newName = faker.person.firstName();
-    sessionStorage.setItem(NAME_KEY, newName);
-    return newName;
-  }
-  return name;
-}
+        <div className="flex flex-col gap-2">
+          <h2>We offer:</h2>
+          <ul className="flex flex-col gap-2">
+            <li>
+              <strong>Initial reuse assessment</strong> (prior to demolition) on-site and via the digital building
+              archive
+            </li>
+            <li>
+              <strong>Dismantling plans</strong>
+            </li>
+            <li>
+              <strong>Non-destructive testing</strong> of concrete elements in the donor structure
+            </li>
+            <li>
+              <strong>Labeling of elements</strong> with RFID chips that store information on the element history and
+              material quality to facilitate safe reintegration
+            </li>
+            <li>
+              <strong>Showcasing the reclaimed elements</strong> on our platform to find a receiver building
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+);
