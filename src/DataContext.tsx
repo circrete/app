@@ -9,7 +9,6 @@ import { MaterialTable } from './data/materials/MaterialTable';
 import { RebarTable } from './data/rebars/RebarTable';
 import { GeometryTable } from './data/geometries/GeometryTable';
 import { BuildingEditFormPage } from './data/buildings/BuildingEditFormPage';
-import { ThreeScene } from './visualisation/ThreeScene';
 import { ComponentVisualisation } from './data/components/ComponentVisualisation';
 
 export const DataContext: React.FC = () => {
