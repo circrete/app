@@ -1,14 +1,14 @@
 export const App = () => (
   <main className="max-w-screen-2xl mx-auto p-4 bg-slate-800">
     <header>
-      <h1>Circrete</h1>
-      <p className="subtitle">Sustainable Building Solutions</p>
+      <h1>circrete</h1>
+      <p className="subtitle">Building Tomorrow's Cities with Yesterday's Concrete</p>
     </header>
 
     <section className=" flex flex-col gap-4">
       <div className="flex flex-col gap-4">
         <h3 className="text-xl font-bold">
-          Circrete operates as a consultant for building owners, demolition companies and architects.
+          circrete operates as a consultant for building owners, demolition companies and architects.
         </h3>
 
         <div className="flex flex-col gap-2">

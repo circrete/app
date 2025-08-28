@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
       <div className="flex flex-row justify-between items-center text-slate-50 z-50 max-w-screen-2xl mx-auto px-4 h-[calc(var(--header-height)-16px)]">
         <div className="flex items-center gap-4">
           <img src={circreteLogo} alt="Logo" className="h-8 w-8" />
-          <h1 className="text-2xl font-bold">Circrete App</h1>
+          <h1 className="text-2xl font-bold">circrete</h1>
         </div>
         <div className="flex items-center gap-4">
           <ChipWrapper onClick={() => (window.location.hash = '/')}>Home</ChipWrapper>
