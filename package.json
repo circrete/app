@@ -5,7 +5,7 @@
     "dev": "concurrently -n 'backend,web' -c '#fcba03,#9e0f0d' 'bun run dev:backend' 'bun run dev:frontend' ",
     "build": "tsc && vite build",
     "dev:backend": "bunx --bun convex dev",
-    "dev:frontend": "vite --open",
+    "dev:frontend": "vite --host --open",
     "predev": "convex dev --once"
   },
   "dependencies": {
