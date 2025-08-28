@@ -8,6 +8,10 @@ export const AgGridWrapper = <K extends DataModel[TableNames]['document']>({ ...
       rowSelection={{
         mode: 'multiRow'
       }}
+      defaultColDef={{
+        minWidth: 100,
+        flex: 1
+      }}
     />
   </div>
 );
