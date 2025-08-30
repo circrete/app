@@ -1,15 +1,14 @@
-import { GridReadyEvent } from 'ag-grid-community';
 import { type DataModel } from '../../../convex/_generated/dataModel';
 import { GeneralTable } from '../GeneralTable';
 import { Drawer } from '../../uicomponents/Drawer';
-import { Suspense, useMemo, useRef, useState } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 import { ComponentEditForm } from './ComponentEditForm';
 import { Bounds, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { ComponentInstancesRenderer } from '../../visualisation/renderers/ComponentInstancesRenderer';
-import { Axis } from '../../visualisation/utils/Axis';
-import { getPreprocessedGeometryDatatForComponents } from '../../visualisation/utils/getGeometry';
-import { SelectToZoom } from '../../visualisation/SelectToZoom';
+import { getPreprocessedGeometryDatatForComponents } from '../../visualisation/webgl/lib/getGeometry';
+import { ComponentInstancesRenderer } from '../../visualisation/webgl/renderers/ComponentInstancesRenderer';
+import { Axis } from '../../visualisation/webgl/utils/Axis';
+import { SelectToZoom } from '../../visualisation/webgl/utils/SelectToZoom';
 
 export const ComponentVisualisation: React.FC<{
   components: DataModel['components']['document'][];
@@ -40,7 +39,7 @@ export const ComponentVisualisation: React.FC<{
       addMethod={!showForm ? () => setShowForm(true) : undefined}
       selectedItemsCount={selectedComponents.length}
     >
-      <Canvas gl={{ preserveDrawingBuffer: true }} className="rounded-lg bg-slate-700">
+      <Canvas gl={{ preserveDrawingBuffer: true }} className="bg-slate-700">
         <directionalLight position={[0, 10, 0]} intensity={1} />
         <directionalLight position={[10, 0, 0]} intensity={0.5} />
         <directionalLight position={[-10, 0, 0]} intensity={0.5} />
