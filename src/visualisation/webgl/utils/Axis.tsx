@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { AxesHelper, BoxHelper } from 'three';
 import { useThree } from '@react-three/fiber';
-import { DataModel } from '../../../convex/_generated/dataModel';
+import { DataModel } from '../../../../convex/_generated/dataModel';
 
 // proportional to longest extent
 const AXIS_LENGTH_SCALE = 0.1;

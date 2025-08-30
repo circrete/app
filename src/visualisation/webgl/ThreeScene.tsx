@@ -1,11 +1,11 @@
 import { Canvas } from '@react-three/fiber';
 import { Bounds, OrbitControls } from '@react-three/drei';
-import React, { Suspense, useEffect, useMemo } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { ComponentInstancesRenderer } from './renderers/ComponentInstancesRenderer';
-import { getPreprocessedGeometryDatatForComponents } from './utils/getGeometry';
 import { Axis } from './utils/Axis';
-import { DataModel } from '../../convex/_generated/dataModel';
-import { SelectToZoom } from './SelectToZoom';
+import { type DataModel } from '../../../convex/_generated/dataModel';
+import { SelectToZoom } from './utils/SelectToZoom';
+import { getPreprocessedGeometryDatatForComponents } from './lib/getGeometry';
 
 export const ThreeScene: React.FC<{
   components: DataModel['components']['document'][];

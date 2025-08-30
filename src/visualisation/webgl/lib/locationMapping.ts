@@ -1,8 +1,8 @@
 // all location in the project are stored in WGS84 coordinates
 // hower, when drawing on a map we will be interating with its local coordinate system
 
-import { DataModel } from '../../../convex/_generated/dataModel';
-import { LocationDataType } from '../../data/location/locationType';
+import { DataModel } from '../../../../convex/_generated/dataModel';
+import { LocationDataType } from '../../../data/location/locationType';
 
 const toRadians = (degrees: number): number => degrees * (Math.PI / 180);
 const toDegrees = (radians: number): number => radians * (180 / Math.PI);

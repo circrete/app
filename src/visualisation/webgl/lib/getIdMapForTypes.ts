@@ -1,4 +1,4 @@
-import { DataModel, TableNames } from '../../../convex/_generated/dataModel';
+import { DataModel, TableNames } from '../../../../convex/_generated/dataModel';
 
 /**
  * Helper method to get an idMap for a Type T

@@ -1,8 +1,8 @@
-import { DataModel } from '../../../convex/_generated/dataModel';
-import { getColorForCondition, hexToRgb } from '../lib/colors';
-import { getWidthHeightLenghtForGeometryId } from '../lib/componentDataMethod';
-import { getGeometryIdTypeComponentMap } from '../lib/getIdMapForTypes';
-import { getLocalCoordinates } from '../lib/locationMapping';
+import { DataModel } from '../../../../convex/_generated/dataModel';
+import { hexToRgb, getColorForCondition } from './colors';
+import { getWidthHeightLenghtForGeometryId } from './componentDataMethod';
+import { getGeometryIdTypeComponentMap } from './getIdMapForTypes';
+import { getLocalCoordinates } from './locationMapping';
 import { GeometryDisplayType } from '../types/geometryDisplayTypes';
 import { xyzToWebgl } from './coordinateSystem';
 

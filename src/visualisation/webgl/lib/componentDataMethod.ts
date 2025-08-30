@@ -1,4 +1,4 @@
-import { DataModel } from '../../../convex/_generated/dataModel';
+import { DataModel } from '../../../../convex/_generated/dataModel';
 
 /**
  * Helper method to get the widht height and length of a given geometry

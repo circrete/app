@@ -1,4 +1,4 @@
-import { DataModel, TableNames } from '../../../convex/_generated/dataModel';
+import { DataModel, TableNames } from '../../../../convex/_generated/dataModel';
 
 // /**
 //  * Helper method that gets for every component the test data that is available
