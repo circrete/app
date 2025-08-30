@@ -1,5 +1,16 @@
 import { DataModel } from '../../../convex/_generated/dataModel';
 
+export const getMapStageKey = (
+  buildings: DataModel['buildings']['document'][] // take the last 2 values of each string representation and join them
+) =>
+  buildings
+    .map((building) =>
+      building.location
+        ? building.location.latitude.toFixed(15).slice(-2) + building.location.longitude.toFixed(15).slice(-2)
+        : ''
+    )
+    .join('');
+
 export const getCenterForBuildings = (buildings: DataModel['buildings']['document'][]) => {
   if (buildings.length === 0)
     return {

@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup, MapContainerProps } from 'react-leaflet';
 import { Map as LeafletMap } from 'leaflet';
 import { DataModel } from '../../../convex/_generated/dataModel';
-import { getCenterForBuildings } from './lib';
+import { getCenterForBuildings, getMapStageKey } from './lib';
 import { CircreteIcon } from './BuildingIcon';
 
 export const MapWrapper: React.FC<
@@ -17,6 +17,7 @@ export const MapWrapper: React.FC<
     className="w-full h-full"
     center={getCenterForBuildings(buildings)}
     zoom={13}
+    key={getMapStageKey(buildings)}
   >
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
