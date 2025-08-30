@@ -33,9 +33,9 @@ export const MapWrapper: React.FC<
               click: (e) => setBuilding(building)
             }}
           >
-            <Popup>
+            {/* <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
+            </Popup> */}
           </Marker>
         )
     )}
