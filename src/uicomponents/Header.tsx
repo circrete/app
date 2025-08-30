@@ -15,7 +15,8 @@ export const Header: React.FC = () => {
     { label: 'Rebars', value: '/rebars' },
     { label: 'Geometries', value: '/geometries' },
     { label: 'Users', value: '/users' },
-    { label: 'Visualisation', value: '/visualisation' }
+    { label: 'Visualisation', value: '/visualisation' },
+    { label: 'Locations', value: '/building-locations' }
   ];
 
   // Update current route when hash changes

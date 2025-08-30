@@ -10,6 +10,7 @@ import { RebarTable } from './data/rebars/RebarTable';
 import { GeometryTable } from './data/geometries/GeometryTable';
 import { BuildingEditFormPage } from './data/buildings/BuildingEditFormPage';
 import { ComponentVisualisation } from './data/components/ComponentVisualisation';
+import { BuildingLocationVisualisation } from './data/buildings/BuildingLocationVisualisation';
 
 export const DataContext: React.FC = () => {
   const buildings = useQuery(api.queries.collect.buildings.getAll);
@@ -24,6 +25,10 @@ export const DataContext: React.FC = () => {
     <Routes>
       {/**table views*/}
       <Route path={`/buildings`} element={<BuildingTable buildings={buildings ?? []} users={users ?? []} />} />
+      <Route
+        path={`/building-locations`}
+        element={<BuildingLocationVisualisation buildings={buildings ?? []} users={users ?? []} />}
+      />
       <Route
         path={`/components`}
         element={
