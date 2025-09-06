@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import circreteLogo from '../assets/circrete-logo.avif';
-import { ChipWrapper } from './Chip';
 import { Select } from './form/Select';
 
 export const Header: React.FC = () => {
@@ -40,11 +39,14 @@ export const Header: React.FC = () => {
     <div className="max-h-[calc(var(--header-height)-16px)] fixed top-0 left-0 right-0 bg-slate-800">
       <div className="flex flex-row justify-between items-center text-slate-50 z-50 max-w-screen-2xl mx-auto px-4 h-[calc(var(--header-height)-16px)]">
         <div className="flex items-center gap-4">
-          <img src={circreteLogo} alt="Logo" className="h-8 w-8" />
-          <h1 className="text-2xl font-bold">circrete</h1>
+          <a className="cursor-pointer" href="http://circrete.dk/">
+            <img src={circreteLogo} alt="Logo" className="h-8 w-8" />
+          </a>
+          <h1 onClick={() => (window.location.hash = '/')} className="text-2xl font-bold cursor-pointer underline">
+            circrete
+          </h1>
         </div>
         <div className="flex items-center gap-4">
-          <ChipWrapper onClick={() => (window.location.hash = '/')}>Home</ChipWrapper>
           <Select options={navigationOptions} value={currentRoute} onChange={handleNavigationChange} />
         </div>
       </div>
