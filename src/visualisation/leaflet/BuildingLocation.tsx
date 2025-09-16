@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, MapContainerProps } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, MapContainerProps } from 'react-leaflet';
 import { Map as LeafletMap } from 'leaflet';
 import { DataModel } from '../../../convex/_generated/dataModel';
 import { getCenterForBuildings, getMapStageKey } from './lib';
