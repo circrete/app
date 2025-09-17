@@ -6,6 +6,7 @@ import concreteRubleTower from '../assets/images/concrete-ruble-tower-jpg-30.jpg
 import rabottorens from '../assets/images/rabottorens-jpg-30.jpg';
 import colorfullNonRabot from '../assets/images/colorfullNonRabot-jpg-30.jpg';
 import sitePicture from '../assets/images/site-picture-jpg-35.jpg';
+import planData from '../assets/images/plan-data-crop-jpg-30.jpg';
 
 export const Vision: React.FC = () => (
   <main>
@@ -43,18 +44,19 @@ export const Vision: React.FC = () => (
           <img className="lg:w-[calc((100%_-16px)*1.5/2.38)]" src={rabottorens} alt="Interior" />
           <img className="lg:w-[calc((100%_-16px)*.88/2.38)]" src={colorfullNonRabot} alt="Interior" />
         </div>
+        <h1>Structural Reuse</h1>
         <div className="w-full flex gap-4 flex-col lg:flex-row">
           <img className="w-[100%] h-[197%] lg:w-[500px]" src={concreteRubleTower} alt="Concrete Ruble Tower" />
           <div className="w-full flex flex-col justify-between gap-4">
             <div className="w-full flex flex-col gap-4">
-              <h3>Potential of structural elements</h3>
+              <h3>Potential of Structural Elements</h3>
               <p>
                 Obsolete buildings are often structurally sound before transformation or demolition which usually occurs
                 for reasons unrelated to material quality or structural integrity. Concrete structures often undergo
                 low-value recycling, being crushed for road bases or backfilling purposes rather than being preserved at
                 the element scale and used in a load-bearing context.
               </p>
-              <h3>What is structural reuse?</h3>
+              <h3>What Is Structural Reuse?</h3>
               <p>
                 The load-bearing structure of a building contains up to 80% of the embodied carbon and makes up for up
                 to 60% of the mass. Structural concrete reuse involves salvaging and repurposing entire concrete
@@ -67,17 +69,19 @@ export const Vision: React.FC = () => (
             </div>
           </div>
         </div>
+        <h1>Process</h1>
         <img className="w-[100%] h-[61%]" src={interior} alt="Interior" />
         <div className="w-full flex gap-4 flex-col lg:flex-row-reverse">
-          <img className="w-[100%] h-[66%] lg:w-[500px]" src={rebound} alt="Rebound" />
+          <img className="flex justify-center w-[100%] h-[66%] lg:w-[500px]" src={planData} alt="Label" />
           <div className="flex flex-col gap-2">
-            <h3>Non-Destructive Testing</h3>
+            <h3>Archive Work</h3>
             <p>
-              text that belongs here. text that belongs here. text that belongs here. text that belongs here. text that
-              belongs here. text that belongs here. text that belongs here. text that belongs here. text that belongs
-              here. text that belongs here. text that belongs here. text that belongs here. text that belongs here. text
-              that belongs here. text that belongs here. text that belongs here. text that belongs here. text that
-              belongs here. text that belongs here. text that belongs here. text that belongs here.
+              Before any physical work begins on-site, we thoroughly review all available architectural and structural
+              plan data related to the building. This includes examining drawings, blueprints, and any relevant
+              documentation found in historical archives. Based on this information, we compile a detailed inventory of
+              all the structural and architectural elements present in the building. This preparatory step ensures that
+              we have a comprehensive understanding of the building's original design and composition, allowing us to
+              plan our assessment and intervention strategies with greater accuracy and efficiency.
             </p>
           </div>
         </div>
@@ -85,6 +89,21 @@ export const Vision: React.FC = () => (
           <img className="flex justify-center w-[100%] h-[66%] lg:w-[500px]" src={label} alt="Label" />
           <div className="flex flex-col gap-2">
             <h3>Site Inspection</h3>
+            <p>
+              Non-destructive tests are applied to each individual element to ensure structural integrity without
+              causing any damage. Among these, the rebound test is used to assess surface hardness; this method provides
+              valuable insight into the material's strength and elasticity while preserving its original state. In
+              addition, chemical reactivity tests are performed to evaluate how the elements respond to various
+              environmental and chemical exposures, ensuring long-term durability. Ultrasonic tests are also carried
+              out, allowing for the detection of internal flaws or inconsistencies through high-frequency sound waves,
+              further contributing to a comprehensive assessment of each element's condition.
+            </p>
+          </div>
+        </div>
+        <div className="w-full flex gap-4 flex-col lg:flex-row-reverse">
+          <img className="w-[100%] h-[66%] lg:w-[500px]" src={rebound} alt="Rebound" />
+          <div className="flex flex-col gap-2">
+            <h3>Non-Destructive Testing</h3>
             <p>
               text that belongs here. text that belongs here. text that belongs here. text that belongs here. text that
               belongs here. text that belongs here. text that belongs here. text that belongs here. text that belongs
