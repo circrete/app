@@ -30,15 +30,15 @@ export const Vision: React.FC = () => (
             Right now most concrete is crushed and at best has it aggregates recycled, but more likely ends up being
             used as road base or backfill. In some cases it might just even be disposed of in a landfill.
           </p>
-          <span className="text-bold">We want to change that.</span>
+          <span className="font-medium">We want to change that.</span>
         </div>
       </div>
       <div className="flex flex-col gap-4">
         <h3 className="text-xl font-bold">Selective Demolition</h3>
         <p>
-          As pretty as a structure might look like after it has been stripped of most of the achitectural features,
-          images of an ongoing demolition rather invoke images of akin to a warzone. It's an energy intensive process
-          that is also quite dangerous.
+          As pretty as a structure might look like after it has been stripped of most of the achitectural features, an
+          ongoing demolition rather invokes images akin to a warzone. It's an dirty, energy intensive and quite
+          dangerous process.
         </p>
         <div className="w-fill flex gap-4 flex-col lg:h-[calc(calc(100%-16px)*.395)] lg:flex-row">
           <img className="lg:w-[calc((100%_-16px)*1.5/2.38)]" src={rabottorens} alt="Interior" />
@@ -90,6 +90,22 @@ export const Vision: React.FC = () => (
           <div className="flex flex-col gap-2">
             <h3>Site Inspection</h3>
             <p>
+              As part of the initial site inspection, we verify whether the archived data remains valid and accurately
+              reflects the current state of the building. This involves comparing the documented information with the
+              actual conditions on site to identify any discrepancies or undocumented changes. Alongside this, an
+              initial visual inspection is conducted to assess the general condition of the structure and its elements.
+              This early stage allows us to develop a preliminary understanding of the building’s current state and
+              begin forming an estimate of the likelihood that individual components can be preserved, restored, or will
+              require replacement. This step is crucial in determining the feasibility and scope of potential recovery
+              efforts.
+            </p>
+          </div>
+        </div>
+        <div className="w-full flex gap-4 flex-col lg:flex-row-reverse">
+          <img className="w-[100%] h-[66%] lg:w-[500px]" src={rebound} alt="Rebound" />
+          <div className="flex flex-col gap-2">
+            <h3>Non-Destructive Testing</h3>
+            <p>
               Non-destructive tests are applied to each individual element to ensure structural integrity without
               causing any damage. Among these, the rebound test is used to assess surface hardness; this method provides
               valuable insight into the material's strength and elasticity while preserving its original state. In
@@ -100,43 +116,7 @@ export const Vision: React.FC = () => (
             </p>
           </div>
         </div>
-        <div className="w-full flex gap-4 flex-col lg:flex-row-reverse">
-          <img className="w-[100%] h-[66%] lg:w-[500px]" src={rebound} alt="Rebound" />
-          <div className="flex flex-col gap-2">
-            <h3>Non-Destructive Testing</h3>
-            <p>
-              text that belongs here. text that belongs here. text that belongs here. text that belongs here. text that
-              belongs here. text that belongs here. text that belongs here. text that belongs here. text that belongs
-              here. text that belongs here. text that belongs here. text that belongs here. text that belongs here. text
-              that belongs here. text that belongs here. text that belongs here. text that belongs here. text that
-              belongs here. text that belongs here. text that belongs here. text that belongs here.
-            </p>
-          </div>
-        </div>
         <img className="w-[100%] h-[54%]" src={sitePicture} alt="Site Picture" />
-
-        <div className="flex flex-col gap-2">
-          <h2>We offer:</h2>
-          <ul className="flex flex-col gap-2">
-            <li>
-              <strong>Initial reuse assessment</strong> (prior to demolition) on-site and via the digital building
-              archive
-            </li>
-            <li>
-              <strong>Dismantling plans</strong>
-            </li>
-            <li>
-              <strong>Non-destructive testing</strong> of concrete elements in the donor structure
-            </li>
-            <li>
-              <strong>Labeling of elements</strong> with RFID chips that store information on the element history and
-              material quality to facilitate safe reintegration
-            </li>
-            <li>
-              <strong>Showcasing the reclaimed elements</strong> on our platform to find a receiver building
-            </li>
-          </ul>
-        </div>
       </div>
     </section>
   </main>
