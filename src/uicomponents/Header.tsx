@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <div className="max-h-[calc(var(--header-height)-16px)] fixed top-0 left-0 right-0 bg-[color-mix(in_hsl,var(--color-slate-800)_90%,rgba(0,0,0,0)_10%)] backdrop-blur-xs border-b border-slate-700">
+    <div className="max-h-[calc(var(--header-height)-16px)] z-1000 fixed top-0 left-0 right-0 bg-[color-mix(in_hsl,var(--color-slate-800)_90%,rgba(0,0,0,0)_10%)] backdrop-blur-xs border-b border-slate-700">
       <div className="flex flex-row justify-between items-center text-slate-50 z-50 max-w-screen-2xl mx-auto px-4 h-[calc(var(--header-height)-16px)]">
         <div className="flex items-center gap-4">
           <a className="cursor-pointer" href="http://circrete.dk/">
