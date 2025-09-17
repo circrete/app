@@ -103,7 +103,7 @@ export const RebarEditForm: React.FC<{
             <div>
               <label className="block text-sm font-medium mb-2">Rebar Entries</label>
               <div className="text-sm text-gray-600">{formData.rebarEntries.length} entries configured</div>
-              <p className="text-xs text-gray-500 mt-1">Rebar entries editing not yet implemented</p>
+              <p className="text-gray-500 mt-1">Rebar entries editing not yet implemented</p>
             </div>
           </div>
           <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />

@@ -119,7 +119,7 @@ export const ComponentEditForm: React.FC<{
         <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
           <div className="flex-1 overflow-y-auto flex flex-col gap-4">
             {/* Basic Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <Input
                 label="Type"
                 value={formData.type}
@@ -167,7 +167,7 @@ export const ComponentEditForm: React.FC<{
             </div>
 
             {/* Text Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <Input
                 label="Loading Condition"
                 value={formData.loadingCondition}
@@ -195,7 +195,7 @@ export const ComponentEditForm: React.FC<{
             </div>
 
             {/* Dropdowns */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               <Select
                 label="Building"
                 value={formData.buildingId}
