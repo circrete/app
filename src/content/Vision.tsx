@@ -10,25 +10,41 @@ import sitePicture from '../assets/images/site-picture-jpg-35.jpg';
 export const Vision: React.FC = () => (
   <main>
     <title>Vision</title>
-    <header>
+    <header className="pb-4">
       <h1>circrete</h1>
       <h3>Building Tomorrow's Cities with Yesterday's Concrete</h3>
     </header>
     <section className=" flex flex-col gap-4">
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2">
+        <p>
+          Concrete is a very versatile and durable material. Durable and easy to shape into any form it gave form to
+          much of our modern buildings and infrastructure. It is made by mixing stones (known as aggregates) with cement
+          and water. Just like stone, concrete is rather brittle. To allow it to be used in a load-bearing context, it
+          is reinforced with steel bars.
+        </p>
+        <div className="flex flex-col gap-4">
+          <p>
+            As frequently as concrete is used, the cement industry is the single largest source of CO2 emissions.
+            Concrete is the single largest consumer of cement, making it the one of the materials emitting the most CO2.
+            Right now most concrete is crushed and at best has it aggregates recycled, but more likely ends up being
+            used as road base or backfill. In some cases it might just even be disposed of in a landfill.
+          </p>
+          <span className="text-bold">We want to change that.</span>
+        </div>
+      </div>
       <div className="flex flex-col gap-4">
-        <h3 className="text-xl font-bold">
-          circrete operates as a consultant for building owners, demolition companies and architects.
-        </h3>
+        <h3 className="text-xl font-bold">Selective Demolition</h3>
+        <p>
+          As pretty as a structure might look like after it has been stripped of most of the achitectural features,
+          images of an ongoing demolition rather invoke images of akin to a warzone. It's an energy intensive process
+          that is also quite dangerous.
+        </p>
         <div className="w-fill flex gap-4 flex-col lg:h-[calc(calc(100%-16px)*.395)] lg:flex-row">
           <img className="lg:w-[calc((100%_-16px)*1.5/2.38)]" src={rabottorens} alt="Interior" />
           <img className="lg:w-[calc((100%_-16px)*.88/2.38)]" src={colorfullNonRabot} alt="Interior" />
         </div>
         <div className="w-full flex gap-4 flex-col lg:flex-row">
-          <img
-            className="w-[100%] h-[197%] min-w-[500px] lg:max-w-[500px]"
-            src={concreteRubleTower}
-            alt="Concrete Ruble Tower"
-          />
+          <img className="w-[100%] h-[197%] lg:w-[500px]" src={concreteRubleTower} alt="Concrete Ruble Tower" />
           <div className="w-full flex flex-col justify-between gap-4">
             <div className="w-full flex flex-col gap-4">
               <h3>Potential of structural elements</h3>
@@ -53,7 +69,7 @@ export const Vision: React.FC = () => (
         </div>
         <img className="w-[100%] h-[61%]" src={interior} alt="Interior" />
         <div className="w-full flex gap-4 flex-col lg:flex-row-reverse">
-          <img className="w-[100%] h-[66%] min-w-[500px] lg:max-w-[500px]" src={rebound} alt="Rebound" />
+          <img className="w-[100%] h-[66%] lg:w-[500px]" src={rebound} alt="Rebound" />
           <div className="flex flex-col gap-2">
             <h3>Non-Destructive Testing</h3>
             <p>
@@ -66,11 +82,7 @@ export const Vision: React.FC = () => (
           </div>
         </div>
         <div className="w-full flex gap-4 flex-col lg:flex-row">
-          <img
-            className="flex justify-center w-[100%] h-[66%] min-w-[500px] lg:max-w-[500px]"
-            src={label}
-            alt="Label"
-          />
+          <img className="flex justify-center w-[100%] h-[66%] lg:w-[500px]" src={label} alt="Label" />
           <div className="flex flex-col gap-2">
             <h3>Site Inspection</h3>
             <p>
