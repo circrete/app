@@ -10,6 +10,7 @@ import { Route } from 'react-router';
 import { App } from './App';
 import { Vision } from './content/Vision';
 import { ContentStyleWrapper } from './content/ContentStyleWrapper';
+import { AECFlow } from './content/AECFlow';
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/vision" element={<ContentStyleWrapper children={<Vision />} />} />
+          <Route path="/aec-flow" element={<ContentStyleWrapper children={<AECFlow />} />} />
         </Routes>
         <DataContext />
       </StrictMode>
