@@ -15,7 +15,7 @@ export const Landing: React.FC = () => (
             Vison
           </Link>
           <Link href="/aec-flow" className="font-bold text-lg hover:text-slate-500 transition-colors cursor-pointer">
-            App History: Aec-Flow
+            Aec-Flow
           </Link>
         </div>
       </div>
