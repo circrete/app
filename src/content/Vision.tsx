@@ -18,7 +18,7 @@ export const Vision: React.FC = () => (
     <section className=" flex flex-col gap-4">
       <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2">
         <p>
-          Concrete is a very versatile and durable material. Durable and easy to shape into any form it gave form to
+          Concrete is a very versatile and durable material. Durable and easy to shape into any form, it gave form to
           much of our modern buildings and infrastructure. It is made by mixing stones (known as aggregates) with cement
           and water. Just like stone, concrete is rather brittle. To allow it to be used in a load-bearing context, it
           is reinforced with steel bars.
@@ -26,9 +26,9 @@ export const Vision: React.FC = () => (
         <div className="flex flex-col gap-4">
           <p>
             As frequently as concrete is used, the cement industry is the single largest source of CO2 emissions.
-            Concrete is the single largest consumer of cement, making it the one of the materials emitting the most CO2.
-            Right now most concrete is crushed and at best has it aggregates recycled, but more likely ends up being
-            used as road base or backfill. In some cases it might just even be disposed of in a landfill.
+            Concrete is the single largest consumer of cement, making it one of the materials emitting the most CO2.
+            Right now, most concrete is crushed and at best has its aggregates recycled, but more likely ends up being
+            used as road base or backfill. In some cases, it might even be disposed of in a landfill.
           </p>
           <span className="font-medium">We want to change that.</span>
         </div>
@@ -36,8 +36,8 @@ export const Vision: React.FC = () => (
       <div className="flex flex-col gap-4">
         <h3 className="text-xl font-bold">Selective Demolition</h3>
         <p>
-          As pretty as a structure might look like after it has been stripped of most of the achitectural features, an
-          ongoing demolition rather invokes images akin to a warzone. It's an dirty, energy intensive and quite
+          As pretty as a structure might look after it has been stripped of most of the architectural features, an
+          ongoing demolition rather invokes images akin to a warzone. It's a dirty, energy-intensive, and quite
           dangerous process.
         </p>
         <div className="w-fill flex gap-4 flex-col lg:h-[calc(calc(100%-16px)*.395)] lg:flex-row">
@@ -51,17 +51,17 @@ export const Vision: React.FC = () => (
             <div className="w-full flex flex-col gap-4">
               <h3>Potential of Structural Elements</h3>
               <p>
-                Obsolete buildings are often structurally sound before transformation or demolition which usually occurs
-                for reasons unrelated to material quality or structural integrity. Concrete structures often undergo
-                low-value recycling, being crushed for road bases or backfilling purposes rather than being preserved at
-                the element scale and used in a load-bearing context.
+                Obsolete buildings are often structurally sound before transformation or demolition, which usually
+                occurs for reasons unrelated to material quality or structural integrity. Concrete structures often
+                undergo low-value recycling, being crushed for road bases or backfilling purposes rather than being
+                preserved at the element scale and used in a load-bearing context.
               </p>
               <h3>What Is Structural Reuse?</h3>
               <p>
-                The load-bearing structure of a building contains up to 80% of the embodied carbon and makes up for up
-                to 60% of the mass. Structural concrete reuse involves salvaging and repurposing entire concrete
-                elements (such as beams, columns, or slabs) from demolished buildings for use in new construction,
-                reducing waste and carbon emissions.
+                The load-bearing structure of a building contains up to 80% of the embodied carbon and makes up to 60%
+                of the mass. Structural concrete reuse involves salvaging and repurposing entire concrete elements (such
+                as beams, columns, or slabs) from demolished buildings for use in new construction, reducing waste and
+                carbon emissions.
               </p>
             </div>
             <div className="w-full flex flex-row justify-end">
