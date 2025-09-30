@@ -1,4 +1,4 @@
-import { ChipWrapper } from '../../uicomponents/Chip';
+import { ChipWrapper } from '../../../uicomponents/Chip';
 import { getLongitudeLatitudeString } from './locationLogic';
 import { LocationDataType } from './locationType';
 

@@ -1,4 +1,4 @@
-import { Input } from '../../uicomponents/form/Input';
+import { Input } from '../../../uicomponents/form/Input';
 import { LocationDataType } from './locationType';
 
 const getUpdatedLocation = (longitude: number = 0, latitude: number = 0, height: number = 0): LocationDataType => ({
