@@ -13,6 +13,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as migrations_addType from "../migrations/addType.js";
+import type * as migrations_removeIdAttributes from "../migrations/removeIdAttributes.js";
 import type * as migrations_swapLongitudeLatitude from "../migrations/swapLongitudeLatitude.js";
 import type * as migrations_turnYaws90Degree from "../migrations/turnYaws90Degree.js";
 import type * as queries_collect_buildings from "../queries/collect/buildings.js";
@@ -39,6 +41,8 @@ import type * as tasks_editing_users from "../tasks/editing/users.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  "migrations/addType": typeof migrations_addType;
+  "migrations/removeIdAttributes": typeof migrations_removeIdAttributes;
   "migrations/swapLongitudeLatitude": typeof migrations_swapLongitudeLatitude;
   "migrations/turnYaws90Degree": typeof migrations_turnYaws90Degree;
   "queries/collect/buildings": typeof queries_collect_buildings;
