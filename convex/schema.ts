@@ -157,7 +157,7 @@ export default defineSchema({
   materials: defineTable({
     _id: v.string(),
     id: v.optional(v.string()),
-
+    type: v.optional(v.string()),
     materialCategory: v.string(),
     compressiveStrength: v.float64(),
     tensileStrength: v.float64(),
