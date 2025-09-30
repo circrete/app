@@ -25,10 +25,7 @@ export const MaterialTable: React.FC<{
     if (gridRef.current) gridRef.current!.deselectAll();
   };
 
-  const rowData = useMemo(
-    () => materials.map((m) => getMaterialTableData(m, crossSections)),
-    [materials, crossSections]
-  );
+  const rowData = useMemo(() => materials.map((m) => getMaterialTableData(m)), [materials, crossSections]);
 
   return (
     <GeneralTable

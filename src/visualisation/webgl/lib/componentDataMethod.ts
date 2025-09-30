@@ -16,7 +16,7 @@ export const getWidthHeightLenghtForGeometryId = (
   if (!crossSection) return null;
   return {
     width: crossSection.width,
-    height: geometry.componentCategory === 'Slab' ? crossSection.height : geometry.length,
-    length: geometry.componentCategory === 'Slab' ? geometry.length : crossSection.height
+    height: (geometry.componentCategory === 'Slab' ? crossSection.height : geometry.length) ?? 0.0,
+    length: (geometry.componentCategory === 'Slab' ? geometry.length : crossSection.height) ?? 0.0
   };
 };

@@ -1,5 +1,4 @@
-import { type DataModel } from '../../../convex/_generated/dataModel';
-import { LocationDataType } from '../location/locationType';
+import { LocationDataType } from '../subData/location/locationType';
 
 export type MultiEditData<T> = {
   items: T[];
