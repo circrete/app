@@ -3,12 +3,11 @@ import { mutation } from '../../_generated/server';
 
 export const createBuilding = mutation({
   args: {
-    buildingType: v.string(),
     formerUse: v.string()
   },
   handler: async (ctx, args) => {
     await ctx.db.insert('buildings', {
-      type: args.buildingType,
+      type: 'BuildingType',
       formerUse: args.formerUse,
       address: '',
       complexity: 0,
@@ -26,7 +25,6 @@ export const createBuilding = mutation({
 export const editBuilding = mutation({
   args: {
     buildingId: v.id('buildings'),
-    type: v.optional(v.string()),
     formerUse: v.optional(v.string()),
     address: v.optional(v.string()),
     complexity: v.optional(v.number()),
@@ -55,7 +53,6 @@ export const editBuilding = mutation({
 export const editMultipleBuildings = mutation({
   args: {
     buildingIds: v.array(v.id('buildings')),
-    type: v.optional(v.string()),
     formerUse: v.optional(v.string()),
     address: v.optional(v.string()),
     complexity: v.optional(v.number()),

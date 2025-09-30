@@ -4,7 +4,6 @@ import { v } from 'convex/values';
 export const editComponent = mutation({
   args: {
     componentId: v.id('components'),
-    type: v.optional(v.string()),
     condition: v.optional(v.string()),
     floor: v.optional(v.float64()),
     location: v.optional(
@@ -57,7 +56,6 @@ export const editComponent = mutation({
 export const editMultipleComponents = mutation({
   args: {
     componentIds: v.array(v.id('components')),
-    type: v.optional(v.string()),
     condition: v.optional(v.string()),
     floor: v.optional(v.float64()),
     location: v.optional(
@@ -111,7 +109,6 @@ export const editMultipleComponents = mutation({
 
 export const createComponent = mutation({
   args: {
-    type: v.string(),
     condition: v.string(),
     floor: v.float64(),
     location: v.object({
@@ -147,6 +144,7 @@ export const createComponent = mutation({
   },
   handler: async (ctx, args) => {
     const componentId = await ctx.db.insert('components', {
+      type: 'ComponentType',
       ...args
     });
 

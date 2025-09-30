@@ -3,7 +3,6 @@ import { mutation } from '../../_generated/server';
 
 export const createCrossSection = mutation({
   args: {
-    type: v.string(),
     crossSectionCategory: v.string(),
     height: v.float64(),
     width: v.float64(),
@@ -28,6 +27,7 @@ export const createCrossSection = mutation({
   },
   handler: async (ctx, args) => {
     const crossSectionId = await ctx.db.insert('crossSections', {
+      type: 'CrossSectionType',
       ...args
     });
     return crossSectionId;
@@ -37,7 +37,6 @@ export const createCrossSection = mutation({
 export const editCrossSection = mutation({
   args: {
     crossSectionId: v.id('crossSections'),
-    type: v.optional(v.string()),
     crossSectionCategory: v.optional(v.string()),
     height: v.optional(v.float64()),
     width: v.optional(v.float64()),
@@ -76,7 +75,6 @@ export const editCrossSection = mutation({
 export const editMultipleCrossSections = mutation({
   args: {
     crossSectionIds: v.array(v.id('crossSections')),
-    type: v.optional(v.string()),
     crossSectionCategory: v.optional(v.string()),
     height: v.optional(v.float64()),
     width: v.optional(v.float64()),

@@ -3,13 +3,13 @@ import { mutation } from '../../_generated/server';
 
 export const createGeometry = mutation({
   args: {
-    type: v.string(),
     componentCategory: v.string(),
     length: v.float64(),
-    crossSectionId: v.optional(v.string())
+    crossSectionId: v.string()
   },
   handler: async (ctx, args) => {
     const geometryId = await ctx.db.insert('geometries', {
+      type: 'GeometryType',
       ...args
     });
     return geometryId;
@@ -38,7 +38,6 @@ export const editGeometry = mutation({
 export const editMultipleGeometries = mutation({
   args: {
     geometryIds: v.array(v.id('geometries')),
-    type: v.optional(v.string()),
     componentCategory: v.optional(v.string()),
     length: v.optional(v.float64()),
     crossSectionId: v.optional(v.string())

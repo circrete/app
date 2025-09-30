@@ -17,6 +17,7 @@ export const createMaterial = mutation({
   },
   handler: async (ctx, args) => {
     const materialId = await ctx.db.insert('materials', {
+      type: 'MaterialType',
       ...args
     });
     return materialId;

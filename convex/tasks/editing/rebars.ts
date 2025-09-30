@@ -3,7 +3,6 @@ import { mutation } from '../../_generated/server';
 
 export const createRebar = mutation({
   args: {
-    type: v.string(),
     rebarEntries: v.array(
       v.object({
         rebarAmount: v.float64(),
@@ -14,6 +13,7 @@ export const createRebar = mutation({
   },
   handler: async (ctx, args) => {
     const rebarId = await ctx.db.insert('rebars', {
+      type: 'RebarType',
       ...args
     });
     return rebarId;
@@ -23,7 +23,6 @@ export const createRebar = mutation({
 export const editRebar = mutation({
   args: {
     rebarId: v.id('rebars'),
-    type: v.optional(v.string()),
     rebarEntries: v.optional(
       v.array(
         v.object({
@@ -48,7 +47,6 @@ export const editRebar = mutation({
 export const editMultipleRebars = mutation({
   args: {
     rebarIds: v.array(v.id('rebars')),
-    type: v.optional(v.string()),
     rebarEntries: v.optional(
       v.array(
         v.object({
