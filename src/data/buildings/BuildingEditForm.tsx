@@ -5,7 +5,7 @@ import { api } from '../../../convex/_generated/api';
 import { getUserString } from '../users.ts/userLogic';
 import { Select } from '../../uicomponents/form/Select';
 import { Input } from '../../uicomponents/form/Input';
-import { LocationEdit } from '../location/LocationEdit';
+import { LocationEdit } from '../subData/location/LocationEdit';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
 import { Label } from '../../uicomponents/form/Label';
 import { findCommonString, findCommonNumber, findCommonLocation, getMultiEditTitle } from '../helpers/multiEditHelpers';
@@ -25,7 +25,6 @@ export const BuildingEditForm: React.FC<{
   const building = buildings[0]; // For single edit, use the first building
 
   const [formData, setFormData] = useState({
-    type: findCommonString(buildings, 'type'),
     formerUse: findCommonString(buildings, 'formerUse'),
     address: findCommonString(buildings, 'address'),
     complexity: findCommonNumber(buildings, 'complexity'),
@@ -37,7 +36,6 @@ export const BuildingEditForm: React.FC<{
 
   useEffect(() => {
     setFormData({
-      type: findCommonString(buildings, 'type'),
       formerUse: findCommonString(buildings, 'formerUse'),
       address: findCommonString(buildings, 'address'),
       complexity: findCommonNumber(buildings, 'complexity'),
@@ -55,13 +53,11 @@ export const BuildingEditForm: React.FC<{
     try {
       if (isAdd) {
         await createBuilding({
-          buildingType: formData.type || '',
           formerUse: formData.formerUse || ''
         });
       } else if (!isRequired) {
         await editMultipleBuildings({
           buildingIds: buildings.map((b) => b._id),
-          type: formData.type,
           formerUse: formData.formerUse,
           address: formData.address,
           complexity: formData.complexity,
@@ -73,7 +69,6 @@ export const BuildingEditForm: React.FC<{
       } else if (building) {
         await editBuilding({
           buildingId: building._id,
-          type: formData.type,
           formerUse: formData.formerUse,
           address: formData.address,
           complexity: formData.complexity,
@@ -114,12 +109,6 @@ export const BuildingEditForm: React.FC<{
 
         <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
           <div className="flex-1 overflow-y-auto flex flex-col gap-4">
-            <Input
-              label="Building Type"
-              value={formData.type ?? ''}
-              onChange={(type) => setFormData({ ...formData, type })}
-              required={isRequired}
-            />
             <Input
               label="Former Use"
               value={formData.formerUse ?? ''}

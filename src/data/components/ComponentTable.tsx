@@ -12,7 +12,7 @@ import { useMemo, useRef, useState } from 'react';
 import { ComponentEditForm } from './ComponentEditForm';
 import { ChipWrapper } from '../../uicomponents/Chip';
 import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
-import { LocationChip } from '../location/LocationChip';
+import { LocationChip } from '../subData/location/LocationChip';
 
 export const ComponentTable: React.FC<{
   components: DataModel['components']['document'][];

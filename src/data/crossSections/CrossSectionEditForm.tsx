@@ -6,7 +6,7 @@ import { Select } from '../../uicomponents/form/Select';
 import { Input } from '../../uicomponents/form/Input';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
 import { Label } from '../../uicomponents/form/Label';
-import { findCommonString, findCommonNumber, shouldRequireField, getMultiEditTitle } from '../helpers/multiEditHelpers';
+import { findCommonString, findCommonNumber, getMultiEditTitle } from '../helpers/multiEditHelpers';
 
 export const CrossSectionEditForm: React.FC<{
   crossSections: DataModel['crossSections']['document'][];
@@ -25,7 +25,6 @@ export const CrossSectionEditForm: React.FC<{
   const crossSection = crossSections[0]; // For single edit, use the first cross section
 
   const [formData, setFormData] = useState({
-    type: findCommonString(crossSections, 'type'),
     crossSectionCategory: findCommonString(crossSections, 'crossSectionCategory'),
     height: findCommonNumber(crossSections, 'height'),
     width: findCommonNumber(crossSections, 'width'),
@@ -38,7 +37,6 @@ export const CrossSectionEditForm: React.FC<{
 
   useEffect(() => {
     setFormData({
-      type: findCommonString(crossSections, 'type'),
       crossSectionCategory: findCommonString(crossSections, 'crossSectionCategory'),
       height: findCommonNumber(crossSections, 'height'),
       width: findCommonNumber(crossSections, 'width'),
@@ -101,12 +99,6 @@ export const CrossSectionEditForm: React.FC<{
         <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
           <div className="flex-1 overflow-y-auto flex flex-col gap-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <Input
-                label="Type"
-                value={formData.type}
-                onChange={(type) => setFormData({ ...formData, type })}
-                required={isRequired}
-              />
               <Input
                 label="Category"
                 value={formData.crossSectionCategory}

@@ -23,14 +23,12 @@ export const RebarEditForm: React.FC<{
   const rebar = rebars[0]; // For single edit, use the first rebar
 
   const [formData, setFormData] = useState({
-    type: findCommonString(rebars, 'type'),
     rebarMaterialId: findCommonString(rebars, 'rebarMaterialId'),
     rebarEntries: findDataForArrayField(rebars, 'rebarEntries')
   });
 
   useEffect(() => {
     setFormData({
-      type: findCommonString(rebars, 'type'),
       rebarMaterialId: findCommonString(rebars, 'rebarMaterialId'),
       rebarEntries: findDataForArrayField(rebars, 'rebarEntries')
     });
@@ -82,13 +80,6 @@ export const RebarEditForm: React.FC<{
 
         <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
           <div className="flex-1 overflow-y-auto flex flex-col gap-4">
-            <Input
-              label="Type"
-              value={formData.type}
-              onChange={(type) => setFormData({ ...formData, type })}
-              required={isRequired}
-            />
-
             <Select
               label="Material"
               value={formData.rebarMaterialId}

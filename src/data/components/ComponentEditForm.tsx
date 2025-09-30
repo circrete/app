@@ -7,7 +7,7 @@ import { getUserString } from '../users.ts/userLogic';
 import { Input } from '../../uicomponents/form/Input';
 import { Select } from '../../uicomponents/form/Select';
 import { Checkbox } from '../../uicomponents/form/Checkbox';
-import { LocationEdit } from '../location/LocationEdit';
+import { LocationEdit } from '../subData/location/LocationEdit';
 import { getBuildingString } from '../buildings/buildingLogic';
 import { Label } from '../../uicomponents/form/Label';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
@@ -39,7 +39,6 @@ export const ComponentEditForm: React.FC<{
   const component = components[0]; // For single edit, use the first component
 
   const [formData, setFormData] = useState({
-    type: findCommonString(components, 'type'),
     condition: findCommonString(components, 'condition'),
     floor: findCommonNumber(components, 'floor'),
     location: findCommonLocation(components, 'location'),
@@ -61,7 +60,6 @@ export const ComponentEditForm: React.FC<{
 
   useEffect(() => {
     setFormData({
-      type: findCommonString(components, 'type'),
       condition: findCommonString(components, 'condition'),
       floor: findCommonNumber(components, 'floor'),
       location: findCommonLocation(components, 'location'),
@@ -120,12 +118,6 @@ export const ComponentEditForm: React.FC<{
           <div className="flex-1 overflow-y-auto flex flex-col gap-4">
             {/* Basic Information */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <Input
-                label="Type"
-                value={formData.type}
-                onChange={(type: string) => setFormData({ ...formData, type })}
-                required={isRequired}
-              />
               <Input
                 label="Condition"
                 value={formData.condition}

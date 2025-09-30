@@ -23,7 +23,6 @@ export const GeometryEditForm: React.FC<{
   const geometry = geometries[0]; // For single edit, use the first geometry
 
   const [formData, setFormData] = useState({
-    type: findCommonString(geometries, 'type'),
     componentCategory: findCommonString(geometries, 'componentCategory'),
     length: findCommonNumber(geometries, 'length'),
     crossSectionId: findCommonString(geometries, 'crossSectionId')
@@ -31,7 +30,6 @@ export const GeometryEditForm: React.FC<{
 
   useEffect(() => {
     setFormData({
-      type: findCommonString(geometries, 'type'),
       componentCategory: findCommonString(geometries, 'componentCategory'),
       length: findCommonNumber(geometries, 'length'),
       crossSectionId: findCommonString(geometries, 'crossSectionId')
@@ -83,12 +81,6 @@ export const GeometryEditForm: React.FC<{
         <form onSubmit={handleSubmit} className="flex flex-col overflow-y-auto h-full">
           <div className="flex-1 overflow-y-auto flex flex-col gap-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <Input
-                label="Type"
-                value={formData.type}
-                onChange={(type) => setFormData({ ...formData, type })}
-                required={isRequired}
-              />
               <Input
                 label="Component Category"
                 value={formData.componentCategory}
