@@ -84,8 +84,7 @@ const visualInspectionType = v.object({
 export default defineSchema({
   buildings: defineTable({
     _id: v.string(),
-    id: v.optional(v.string()),
-    type: v.optional(v.string()),
+    type: v.string(),
     location: v.optional(locationType),
     address: v.string(),
     ownerId: v.optional(v.string()),
@@ -96,8 +95,7 @@ export default defineSchema({
   }),
   users: defineTable({
     _id: v.string(),
-    id: v.optional(v.string()),
-    type: v.optional(v.string()),
+    type: v.string(),
     name: v.string(),
     address: v.string(),
     company: v.string(),
@@ -106,8 +104,7 @@ export default defineSchema({
   }),
   components: defineTable({
     _id: v.string(),
-    id: v.optional(v.string()),
-    type: v.optional(v.string()),
+    type: v.string(),
     buildingId: v.optional(v.string()),
     img: v.array(v.string()),
     manufacturerId: v.optional(v.string()),
@@ -132,8 +129,7 @@ export default defineSchema({
   }),
   crossSections: defineTable({
     _id: v.string(),
-    id: v.optional(v.string()),
-    type: v.optional(v.string()),
+    type: v.string(),
     crossSectionCategory: v.string(),
     width: v.float64(),
     height: v.float64(),
@@ -146,8 +142,7 @@ export default defineSchema({
   }),
   geometries: defineTable({
     _id: v.string(),
-    id: v.optional(v.string()),
-    type: v.optional(v.string()),
+    type: v.string(),
     crossSectionId: v.string(),
     componentCategory: v.string(),
     length: v.optional(v.float64()),
@@ -156,8 +151,7 @@ export default defineSchema({
   }),
   materials: defineTable({
     _id: v.string(),
-    id: v.optional(v.string()),
-    type: v.optional(v.string()),
+    type: v.string(),
     materialCategory: v.string(),
     compressiveStrength: v.float64(),
     tensileStrength: v.float64(),
@@ -171,8 +165,7 @@ export default defineSchema({
   }),
   rebars: defineTable({
     _id: v.string(),
-    id: v.optional(v.string()),
-    type: v.optional(v.string()),
+    type: v.string(),
     rebarMaterialId: v.optional(v.string()),
     rebarEntries: v.array(rebarEntry)
   })
