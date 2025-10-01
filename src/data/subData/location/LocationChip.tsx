@@ -1,7 +1,7 @@
 import { ChipWrapper } from '../../../uicomponents/Chip';
+import { LocationType } from '../../dataModelTypes';
 import { getLongitudeLatitudeString } from './locationLogic';
-import { LocationDataType } from './locationType';
 
-export const LocationChip: React.FC<{ location: LocationDataType | undefined }> = ({ location }) => (
+export const LocationChip: React.FC<{ location: LocationType | undefined }> = ({ location }) => (
   <ChipWrapper>{location ? getLongitudeLatitudeString(location) : undefined}</ChipWrapper>
 );

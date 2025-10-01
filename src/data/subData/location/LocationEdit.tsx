@@ -1,7 +1,7 @@
 import { Input } from '../../../uicomponents/form/Input';
-import { LocationDataType } from './locationType';
+import { LocationType } from '../../dataModelTypes';
 
-const getUpdatedLocation = (longitude: number = 0, latitude: number = 0, height: number = 0): LocationDataType => ({
+const getUpdatedLocation = (longitude: number = 0, latitude: number = 0, height: number = 0): LocationType => ({
   longitude,
   latitude,
   height
@@ -9,8 +9,8 @@ const getUpdatedLocation = (longitude: number = 0, latitude: number = 0, height:
 
 export const LocationEdit: React.FC<{
   label?: string;
-  location: LocationDataType | undefined;
-  onChange: (location: LocationDataType) => void;
+  location: LocationType | undefined;
+  onChange: (location: LocationType) => void;
   required: boolean;
 }> = ({ label, location, onChange, required }) => {
   return (

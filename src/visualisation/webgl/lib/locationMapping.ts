@@ -2,7 +2,7 @@
 // hower, when drawing on a map we will be interating with its local coordinate system
 
 import { DataModel } from '../../../../convex/_generated/dataModel';
-import { LocationDataType } from '../../../data/subData/location/locationType';
+import { LocationType } from '../../../data/dataModelTypes';
 
 const toRadians = (degrees: number): number => degrees * (Math.PI / 180);
 const toDegrees = (radians: number): number => radians * (180 / Math.PI);
@@ -35,7 +35,7 @@ const wgs84ToLocalXY = (latRef: number, lonRef: number, lat: number, lon: number
  */
 export const getLocalCoordinates = (
   building: DataModel['buildings']['document'],
-  location: LocationDataType
+  location: LocationType
 ): { x: number; y: number; z: number } =>
   building.location
     ? {
@@ -80,7 +80,7 @@ const localXYToWGS84 = (
 export const getWGSCoordinates = (
   building: DataModel['buildings']['document'],
   localPosition: { x: number; y: number; z: number }
-): LocationDataType =>
+): LocationType =>
   building.location
     ? {
         ...localXYToWGS84(building.location.latitude, building.location.longitude, localPosition.x, localPosition.y),

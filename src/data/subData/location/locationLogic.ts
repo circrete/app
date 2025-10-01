@@ -1,4 +1,4 @@
-import { LocationDataType } from './locationType';
+import { LocationType } from '../../dataModelTypes';
 
 /**
  * String formatted as degrees, minutes, seconds
@@ -6,7 +6,7 @@ import { LocationDataType } from './locationType';
  * @returns string representation of the location
  */
 export const getLongitudeLatitudeString = (
-  location: LocationDataType,
+  location: LocationType,
   detailLevel: 'minutes' | 'seconds' | 'centiseconds' = 'minutes'
 ) => {
   const longitude = location.longitude;

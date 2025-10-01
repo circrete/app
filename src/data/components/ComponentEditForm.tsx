@@ -19,6 +19,9 @@ import {
   getMultiEditTitle,
   findDataForArrayField
 } from '../helpers/multiEditHelpers';
+import { VisualInspectionMultiEdit } from '../subData/visualInspection/VisualInspectionMultiEdit';
+import { ReboundTestType, UserType, VisualInspectionType, ComponentType } from '../dataModelTypes';
+import { ReboundTestMultiEdit } from '../subData/reboundTest/ReboundTestMultiEdit';
 
 export const ComponentEditForm: React.FC<{
   components: DataModel['components']['document'][];
@@ -54,8 +57,8 @@ export const ComponentEditForm: React.FC<{
     geometryTypeId: findCommonString(components, 'geometryTypeId'),
     manufacturerId: findCommonString(components, 'manufacturerId'),
     img: [],
-    reboundTest: [],
-    visualInspection: []
+    reboundTest: [] as ReboundTestType[],
+    visualInspection: [] as VisualInspectionType[]
   });
 
   useEffect(() => {
@@ -98,7 +101,6 @@ export const ComponentEditForm: React.FC<{
           ...formData
         });
       }
-      onClose();
     } catch (error) {
       console.error('Failed to update component(s):', error);
     } finally {
@@ -235,6 +237,22 @@ export const ComponentEditForm: React.FC<{
                 onChange={(location) => setFormData({ ...formData, location })}
               />
             </div>
+
+            <h3 className="text-lg font-bold border-t pt-4">Visual Inspections</h3>
+            <VisualInspectionMultiEdit
+              component={component as ComponentType}
+              visualInspections={formData.visualInspection}
+              users={users as UserType[]}
+              onChange={(visualInspection) => setFormData({ ...formData, visualInspection })}
+            />
+
+            <h3 className="text-lg font-bold border-t pt-4">Rebound Tests</h3>
+            <ReboundTestMultiEdit
+              component={component as ComponentType}
+              reboundTests={formData.reboundTest}
+              users={users as UserType[]}
+              onChange={(reboundTest) => setFormData({ ...formData, reboundTest })}
+            />
           </div>
           {/* Submit Button */}
           <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />

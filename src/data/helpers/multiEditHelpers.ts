@@ -1,4 +1,4 @@
-import { LocationDataType } from '../subData/location/locationType';
+import { LocationType } from '../dataModelTypes';
 
 export type MultiEditData<T> = {
   items: T[];
@@ -26,10 +26,10 @@ export const findDataForArrayField = <T>(items: any[], key: string): T[] => {
   return [];
 };
 
-const getLocationHash = (location: LocationDataType) =>
+const getLocationHash = (location: LocationType) =>
   `${location.latitude.toFixed(14)},${location.longitude.toFixed(14)},${location.height.toFixed(14)}`;
 
-export const findCommonLocation = (items: any[], key: string): LocationDataType | undefined => {
+export const findCommonLocation = (items: any[], key: string): LocationType | undefined => {
   if (items.length === 0) return undefined;
   else if (items.length === 1) return items[0][key];
 

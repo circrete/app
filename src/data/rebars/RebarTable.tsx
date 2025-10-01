@@ -10,6 +10,7 @@ import { useMemo, useRef, useState } from 'react';
 import { Drawer } from '../../uicomponents/Drawer';
 import { ChipWrapper } from '../../uicomponents/Chip';
 import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
+import { RebarEntryChip } from '../subData/rebarEntry/RebarEntryChip';
 
 export const RebarTable: React.FC<{
   rebars: DataModel['rebars']['document'][];
@@ -38,7 +39,10 @@ export const RebarTable: React.FC<{
         columnDefs={[
           copyIdCellTable as any,
           { field: 'type' },
-          { field: 'rebarEntries' },
+          {
+            field: 'rebarEntries',
+            cellRenderer: (u: CustomCellRendererProps) => <RebarEntryChip rebarEntry={u.value ?? undefined} />
+          },
           {
             field: 'material',
             cellRenderer: (u: CustomCellRendererProps) => <MaterialChip material={u.value ?? undefined} />

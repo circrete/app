@@ -13,6 +13,9 @@ import { ComponentEditForm } from './ComponentEditForm';
 import { ChipWrapper } from '../../uicomponents/Chip';
 import { AgGridWrapper } from '../../uicomponents/AgGridWrapper';
 import { LocationChip } from '../subData/location/LocationChip';
+import { ReboundTestChip } from '../subData/reboundTest/ReboundTestChip';
+import { UserType } from '../dataModelTypes';
+import { VisualInspectionChip } from '../subData/visualInspection/VisualInspectionChip';
 
 export const ComponentTable: React.FC<{
   components: DataModel['components']['document'][];
@@ -52,8 +55,18 @@ export const ComponentTable: React.FC<{
           { field: 'noHarmfulSubstance' },
           { field: 'planReference' },
           { field: 'price' },
-          { field: 'reboundTest' },
-          { field: 'visualInspection' },
+          {
+            field: 'reboundTest',
+            cellRenderer: (u: CustomCellRendererProps) => (
+              <ReboundTestChip reboundTest={u.value ?? undefined} users={users as UserType[]} />
+            )
+          },
+          {
+            field: 'visualInspection',
+            cellRenderer: (u: CustomCellRendererProps) => (
+              <VisualInspectionChip visualInspection={u.value ?? undefined} users={users as UserType[]} />
+            )
+          },
           {
             field: 'location',
             cellRenderer: (u: CustomCellRendererProps) => <LocationChip location={u.value ?? undefined} />

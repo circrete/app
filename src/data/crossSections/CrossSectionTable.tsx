@@ -60,10 +60,6 @@ export const CrossSectionTable: React.FC<{
             cellRenderer: (u: CustomCellRendererProps) => <RebarChip rebar={u.value ?? undefined} />
           },
           {
-            field: 'manufacturer',
-            cellRenderer: (u: CustomCellRendererProps) => <UserChip user={u.value ?? undefined} />
-          },
-          {
             field: 'edit',
             cellRenderer: (u: CustomCellRendererProps) => (
               <ChipWrapper

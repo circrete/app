@@ -48,12 +48,6 @@ export const MaterialTable: React.FC<{
           { field: 'ft0k' },
           { field: 'ft90k' },
           {
-            field: 'crossSection',
-            cellRenderer: (u: CustomCellRendererProps) => (
-              <CrossSectionChip crossSection={u.value ?? undefined} materials={materials} />
-            )
-          },
-          {
             field: 'edit',
             cellRenderer: (u: CustomCellRendererProps) => (
               <ChipWrapper

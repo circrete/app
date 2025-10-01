@@ -7,6 +7,8 @@ import { Select } from '../../uicomponents/form/Select';
 import { SubmitCancel } from '../../uicomponents/form/SubmitCancel';
 import { Label } from '../../uicomponents/form/Label';
 import { findCommonString, findDataForArrayField, getMultiEditTitle } from '../helpers/multiEditHelpers';
+import { RebarEntryMultiEdit } from '../subData/rebarEntry/RebarEntryMultiEdit';
+import { RebarEntry } from '../dataModelTypes';
 
 export const RebarEditForm: React.FC<{
   rebars: DataModel['rebars']['document'][];
@@ -54,7 +56,6 @@ export const RebarEditForm: React.FC<{
           ...formData
         });
       }
-      onClose?.();
     } catch (error) {
       console.error('Failed to update rebar(s):', error);
     } finally {
@@ -91,11 +92,11 @@ export const RebarEditForm: React.FC<{
               required={isRequired}
             />
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Rebar Entries</label>
-              <div className="text-sm text-gray-600">{formData.rebarEntries.length} entries configured</div>
-              <p className="text-gray-500 mt-1">Rebar entries editing not yet implemented</p>
-            </div>
+            <h3 className="text-lg font-bold border-t pt-4">Rebar Entries</h3>
+            <RebarEntryMultiEdit
+              rebarEntries={formData.rebarEntries as RebarEntry[]}
+              onChange={(rebarEntries) => setFormData({ ...formData, rebarEntries })}
+            />
           </div>
           <SubmitCancel onClose={onClose} isSubmitting={isSubmitting} />
         </form>

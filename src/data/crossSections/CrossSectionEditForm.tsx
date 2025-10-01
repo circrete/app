@@ -59,7 +59,6 @@ export const CrossSectionEditForm: React.FC<{
         console.warn('Creating cross section requires preStressStrandType which is not in the form');
         // For now, we'll skip creation until the form is updated
         await createCrossSection(formData as any);
-        onClose?.();
         return;
       } else if (!isRequired) {
         await editMultipleCrossSections({
@@ -72,7 +71,6 @@ export const CrossSectionEditForm: React.FC<{
           ...formData
         });
       }
-      onClose?.();
     } catch (error) {
       console.error('Failed to update cross section(s):', error);
     } finally {
