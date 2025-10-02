@@ -1,5 +1,5 @@
 // this file is created using a config file on jonasward.eu/doc-configer using the following config string:
-// {"enums":[{"label":"MaterialCategory","stringValues":["Timber","Concrete"]},{"label":"VisualConditionCategory","stringValues":["Good","Fair","Discard"]},{"label":"UserCategory","stringValues":["Admin","Tester","Manufacturer","Buyer"]},{"label":"ComponentCategory","stringValues":["Column","Slab"]},{"label":"CrossSectionCategory","stringValues":["Column","Slab","HollowCore"]}],"types":[{"label":"BuildingType","canReference":true,"fields":[["location","LocationType",false,false,true],["address","string",false,false,false],["ownerId","UserType",true,false,true],["formerUse","string",false,false,false],["gfa","number",false,false,false],["complexity","number",false,false,false],["img","string",false,false,false]]},{"label":"LocationType","canReference":false,"fields":[["longitude","number",false,false,false],["latitude","number",false,false,false],["height","number",false,false,false]]},{"label":"UserType","canReference":true,"fields":[["name","string",false,false,false],["address","string",false,false,false],["company","string",false,false,false],["mail","string",false,false,false],["userCategory","UserCategory",false,false,false]]},{"label":"GPRTestType","canReference":false,"fields":[["rebarDiameter","number",false,false,false],["coverDepth","number",false,false,false],["rebarAmount","number",false,false,false],["date","string",false,false,false],["userId","string",false,false,false],["location","LocationType",false,false,false]]},{"label":"ChemicalTestType","canReference":false,"fields":[["carbonationDepth","number",false,false,false],["chlorideContent","number",false,false,false],["alkaliReactivity","number",false,false,false],["date","string",false,false,false],["userId","string",false,false,false],["location","LocationType",false,false,false]]},{"label":"ComponentType","canReference":true,"fields":[["buildingId","BuildingType",true,false,true],["img","string",false,true,false],["manufacturerId","UserType",true,false,true],["condition","VisualConditionCategory",false,false,false],["noHarmfulSubstance","boolean",false,false,false],["availableFrom","string",false,false,false],["buyer","UserType",true,false,true],["price","number",false,false,false],["loadingCondition","string",false,false,false],["planReference","string",false,false,false],["yaw","number",false,false,false],["geometryTypeId","GeometryType",true,false,true],["floor","number",false,false,false],["location","LocationType",false,false,false],["visualInspection","VisualInspectionType",false,true,false],["liveload","number",false,false,false],["destructiveTest","DestructiveTestType",false,false,true],["coreTest","CoreTestType",false,false,true],["chemicalTest","ChemicalTestType",false,false,true],["gprTest","GPRTestType",false,false,true],["reboundTest","ReboundTestType",false,true,false]]},{"label":"CoreTestType","canReference":false,"fields":[["coreDiameter","number",false,false,false],["coreCompressiveStrength","number",false,false,false],["date","string",false,false,false],["userId","UserType",true,false,false],["location","LocationType",false,false,false]]},{"label":"CrossSectionType","canReference":true,"fields":[["crossSectionCategory","CrossSectionCategory",false,false,false],["width","number",false,false,false],["height","number",false,false,false],["moment","number",false,false,false],["shear","number",false,false,false],["normal","number",false,false,false],["rebarTypeId","RebarType",true,false,true],["concreteMaterialTypeId","MaterialType",true,false,false],["preStressStrandType","PreStressStrandType",false,false,false]]},{"label":"DestructiveTestType","canReference":false,"fields":[["geometryTypeId","GeometryType",true,false,false],["imgLongitudinal","string",false,false,false],["imgTransverse","string",false,false,false],["userId","UserType",true,false,false],["date","string",false,false,false],["shearStrength","number",false,false,false],["compressiveStrength","number",false,false,false],["tensileStrength","number",false,false,false],["youngsModulus","number",false,false,false],["momentCapacity","number",false,false,false],["shearCapacity","number",false,false,false],["normalCapacity","number",false,false,false],["density","number",false,false,false]]},{"label":"GeometryType","canReference":true,"fields":[["crossSectionId","CrossSectionType",true,false,false],["componentCategory","ComponentCategory",false,false,false],["length","number",false,false,true],["height","number",false,false,true],["originalGeometryId","GeometryType",true,false,true]]},{"label":"MaterialType","canReference":true,"fields":[["materialCategory","MaterialCategory",false,false,false],["compressiveStrength","number",false,false,false],["tensileStrength","number",false,false,false],["elasticModulus","number",false,false,false],["density","number",false,false,false],["exposureClass","string",false,false,false],["fc0k","number",false,false,false],["ft0k","number",false,false,false],["fc90k","number",false,false,false],["ft90k","number",false,false,false]]},{"label":"PreStressStrandType","canReference":false,"fields":[["force","number",false,false,false],["steelClass","string",false,false,false],["steelDiameter","number",false,false,false],["amount","number",false,false,false],["date","string",false,false,false],["location","LocationType",false,false,false],["manufacturerId","UserType",true,false,true]]},{"label":"RebarEntry","canReference":false,"fields":[["rebarDiameter","number",false,false,false],["rebarAmount","number",false,false,false]]},{"label":"RebarType","canReference":true,"fields":[["rebarMaterialId","MaterialType",true,false,true],["rebarEntries","RebarEntry",false,true,false]]},{"label":"ReboundTestType","canReference":false,"fields":[["reboundValue","number",false,true,false],["reboundDate","string",false,false,false],["userId","UserType",true,false,true],["location","LocationType",false,false,false]]},{"label":"VisualInspectionType","canReference":false,"fields":[["img","string",false,false,false],["damageType","string",false,false,false],["date","string",false,false,false],["userId","UserType",true,false,false],["location","LocationType",false,false,false]]}],"version":3}
+// {"enums":[{"label":"MaterialCategory","stringValues":["Timber","Concrete"]},{"label":"VisualConditionCategory","stringValues":["Good","Fair","Discard"]},{"label":"UserCategory","stringValues":["Admin","Tester","Manufacturer","Buyer"]},{"label":"ComponentCategory","stringValues":["Column","Slab"]},{"label":"CrossSectionCategory","stringValues":["Column","Slab","HollowCore"]}],"types":[{"label":"BuildingType","canReference":true,"fields":[["location","LocationType",false,false,true],["address","string",false,false,false],["ownerId","UserType",true,false,true],["formerUse","string",false,false,false],["gfa","number",false,false,false],["complexity","number",false,false,false],["img","string",false,false,false],["buildingYaw","number",false,false,true]]},{"label":"LocationType","canReference":false,"fields":[["longitude","number",false,false,false],["latitude","number",false,false,false],["height","number",false,false,false]]},{"label":"UserType","canReference":true,"fields":[["name","string",false,false,false],["address","string",false,false,false],["company","string",false,false,false],["mail","string",false,false,false],["userCategory","UserCategory",false,false,false]]},{"label":"GPRTestType","canReference":false,"fields":[["rebarDiameter","number",false,false,false],["coverDepth","number",false,false,false],["rebarAmount","number",false,false,false],["date","string",false,false,false],["userId","string",false,false,false],["location","LocationType",false,false,true]]},{"label":"ChemicalTestType","canReference":false,"fields":[["carbonationDepth","number",false,false,false],["chlorideContent","number",false,false,false],["alkaliReactivity","number",false,false,false],["date","string",false,false,false],["userId","string",false,false,false],["location","LocationType",false,false,true]]},{"label":"ComponentType","canReference":true,"fields":[["buildingId","BuildingType",true,false,true],["img","string",false,true,false],["manufacturerId","UserType",true,false,true],["condition","VisualConditionCategory",false,false,true],["noHarmfulSubstance","boolean",false,false,true],["availableFrom","string",false,false,true],["buyer","UserType",true,false,true],["price","number",false,false,true],["loadingCondition","string",false,false,true],["planReference","string",false,false,false],["yaw","number",false,false,true],["geometryTypeId","GeometryType",true,false,true],["floor","number",false,false,true],["location","LocationType",false,false,true],["visualInspection","VisualInspectionType",false,true,false],["liveload","number",false,false,true],["destructiveTest","DestructiveTestType",false,false,true],["coreTest","CoreTestType",false,false,true],["chemicalTest","ChemicalTestType",false,false,true],["gprTest","GPRTestType",false,false,true],["reboundTest","ReboundTestType",false,true,false]]},{"label":"CoreTestType","canReference":false,"fields":[["coreDiameter","number",false,false,false],["coreCompressiveStrength","number",false,false,false],["date","string",false,false,false],["userId","UserType",true,false,false],["location","LocationType",false,false,true]]},{"label":"CrossSectionType","canReference":true,"fields":[["crossSectionCategory","CrossSectionCategory",false,false,false],["width","number",false,false,false],["height","number",false,false,false],["moment","number",false,false,false],["shear","number",false,false,false],["normal","number",false,false,false],["rebarTypeId","RebarType",true,false,true],["concreteMaterialTypeId","MaterialType",true,false,false],["preStressStrandType","PreStressStrandType",false,false,false]]},{"label":"DestructiveTestType","canReference":false,"fields":[["geometryTypeId","GeometryType",true,false,false],["imgLongitudinal","string",false,false,false],["imgTransverse","string",false,false,false],["userId","UserType",true,false,false],["date","string",false,false,false],["shearStrength","number",false,false,false],["compressiveStrength","number",false,false,false],["tensileStrength","number",false,false,false],["youngsModulus","number",false,false,false],["momentCapacity","number",false,false,false],["shearCapacity","number",false,false,false],["normalCapacity","number",false,false,false],["density","number",false,false,false]]},{"label":"GeometryType","canReference":true,"fields":[["crossSectionId","CrossSectionType",true,false,false],["componentCategory","ComponentCategory",false,false,false],["length","number",false,false,true],["height","number",false,false,true],["originalGeometryId","GeometryType",true,false,true]]},{"label":"MaterialType","canReference":true,"fields":[["materialCategory","MaterialCategory",false,false,false],["compressiveStrength","number",false,false,false],["tensileStrength","number",false,false,false],["elasticModulus","number",false,false,false],["density","number",false,false,false],["exposureClass","string",false,false,false],["fc0k","number",false,false,false],["ft0k","number",false,false,false],["fc90k","number",false,false,false],["ft90k","number",false,false,false]]},{"label":"PreStressStrandType","canReference":false,"fields":[["force","number",false,false,false],["steelClass","string",false,false,false],["steelDiameter","number",false,false,false],["amount","number",false,false,false],["date","string",false,false,false],["location","LocationType",false,false,true],["manufacturerId","UserType",true,false,true]]},{"label":"RebarEntry","canReference":false,"fields":[["rebarDiameter","number",false,false,false],["rebarAmount","number",false,false,false]]},{"label":"RebarType","canReference":true,"fields":[["rebarMaterialId","MaterialType",true,false,true],["rebarEntries","RebarEntry",false,true,false]]},{"label":"ReboundTestType","canReference":false,"fields":[["reboundValue","number",false,true,false],["reboundDate","string",false,false,false],["userId","UserType",true,false,true],["location","LocationType",false,false,true]]},{"label":"VisualInspectionType","canReference":false,"fields":[["img","string",false,false,false],["damageType","string",false,false,false],["date","string",false,false,false],["userId","UserType",true,false,false],["location","LocationType",false,false,true]]}],"version":3}
 import { defineSchema, defineTable } from 'convex/server';
 import { v } from 'convex/values';
 
@@ -15,7 +15,7 @@ const gPRTestType = v.object({
   rebarAmount: v.float64(),
   date: v.string(),
   userId: v.string(),
-  location: locationType
+  location: v.optional(locationType)
 });
 
 const chemicalTestType = v.object({
@@ -24,7 +24,7 @@ const chemicalTestType = v.object({
   alkaliReactivity: v.float64(),
   date: v.string(),
   userId: v.string(),
-  location: locationType
+  location: v.optional(locationType)
 });
 
 const coreTestType = v.object({
@@ -32,7 +32,7 @@ const coreTestType = v.object({
   coreCompressiveStrength: v.float64(),
   date: v.string(),
   userId: v.string(),
-  location: locationType
+  location: v.optional(locationType)
 });
 
 const destructiveTestType = v.object({
@@ -57,7 +57,7 @@ const preStressStrandType = v.object({
   steelDiameter: v.float64(),
   amount: v.float64(),
   date: v.string(),
-  location: locationType,
+  location: v.optional(locationType),
   manufacturerId: v.optional(v.string())
 });
 
@@ -66,11 +66,11 @@ const rebarEntry = v.object({
   rebarAmount: v.float64()
 });
 
-const reboundTestType = v.object({
+export const reboundTestType = v.object({
   reboundValue: v.array(v.float64()),
   reboundDate: v.string(),
   userId: v.optional(v.string()),
-  location: locationType
+  location: v.optional(locationType)
 });
 
 const visualInspectionType = v.object({
@@ -78,7 +78,7 @@ const visualInspectionType = v.object({
   damageType: v.string(),
   date: v.string(),
   userId: v.string(),
-  location: locationType
+  location: v.optional(locationType)
 });
 
 export default defineSchema({
@@ -91,7 +91,8 @@ export default defineSchema({
     formerUse: v.string(),
     gfa: v.float64(),
     complexity: v.float64(),
-    img: v.string()
+    img: v.string(),
+    buildingYaw: v.optional(v.float64())
   }),
   users: defineTable({
     _id: v.string(),
@@ -108,19 +109,19 @@ export default defineSchema({
     buildingId: v.optional(v.string()),
     img: v.array(v.string()),
     manufacturerId: v.optional(v.string()),
-    condition: v.string(),
-    noHarmfulSubstance: v.boolean(),
-    availableFrom: v.string(),
+    condition: v.optional(v.string()),
+    noHarmfulSubstance: v.optional(v.boolean()),
+    availableFrom: v.optional(v.string()),
     buyer: v.optional(v.string()),
-    price: v.float64(),
-    loadingCondition: v.string(),
+    price: v.optional(v.float64()),
+    loadingCondition: v.optional(v.string()),
     planReference: v.string(),
-    yaw: v.float64(),
+    yaw: v.optional(v.float64()),
     geometryTypeId: v.optional(v.string()),
-    floor: v.float64(),
-    location: locationType,
+    floor: v.optional(v.float64()),
+    location: v.optional(locationType),
     visualInspection: v.array(visualInspectionType),
-    liveload: v.float64(),
+    liveload: v.optional(v.float64()),
     destructiveTest: v.optional(destructiveTestType),
     coreTest: v.optional(coreTestType),
     chemicalTest: v.optional(chemicalTestType),

@@ -3,21 +3,35 @@ import { mutation } from '../../_generated/server';
 
 export const createBuilding = mutation({
   args: {
-    formerUse: v.string()
+    formerUse: v.optional(v.string()),
+    address: v.optional(v.string()),
+    complexity: v.optional(v.number()),
+    gfa: v.optional(v.number()),
+    img: v.optional(v.string()),
+    ownerId: v.optional(v.string()),
+    location: v.optional(
+      v.object({
+        height: v.number(),
+        latitude: v.number(),
+        longitude: v.number()
+      })
+    )
   },
   handler: async (ctx, args) => {
     await ctx.db.insert('buildings', {
       type: 'BuildingType',
-      formerUse: args.formerUse,
-      address: '',
-      complexity: 0,
-      gfa: 0,
-      img: '',
-      location: {
-        height: 0,
-        latitude: 0,
-        longitude: 0
-      }
+      formerUse: args.formerUse ?? '',
+      address: args.address ?? '',
+      complexity: args.complexity ?? 0,
+      gfa: args.gfa ?? 0,
+      img: args.img ?? '',
+      location: args.location
+        ? {
+            height: 0,
+            latitude: 0,
+            longitude: 0
+          }
+        : undefined
     });
   }
 });

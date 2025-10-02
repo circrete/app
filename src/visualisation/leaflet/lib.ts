@@ -31,3 +31,5 @@ export const getCenterForBuildings = (buildings: DataModel['buildings']['documen
 
   return { lat: center.lat / buildings.length, lng: center.lng / buildings.length };
 };
+
+export const getZoomForBuildings = (buildings: DataModel['buildings']['document'][]) => 8;

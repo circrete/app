@@ -31,8 +31,11 @@ export const BuildingEditForm: React.FC<{
     gfa: findCommonNumber(buildings, 'gfa'),
     img: findCommonString(buildings, 'img'),
     location: findCommonLocation(buildings, 'location'),
-    ownerId: findCommonString(buildings, 'ownerId')
+    ownerId: findCommonString(buildings, 'ownerId'),
+    buildingYaw: findCommonNumber(buildings, 'buildingYaw')
   });
+
+  console.log(isAdd);
 
   useEffect(() => {
     setFormData({
@@ -42,7 +45,8 @@ export const BuildingEditForm: React.FC<{
       gfa: findCommonNumber(buildings, 'gfa'),
       img: findCommonString(buildings, 'img'),
       location: findCommonLocation(buildings, 'location'),
-      ownerId: findCommonString(buildings, 'ownerId')
+      ownerId: findCommonString(buildings, 'ownerId'),
+      buildingYaw: findCommonNumber(buildings, 'buildingYaw')
     });
   }, [buildings]);
 
@@ -52,9 +56,7 @@ export const BuildingEditForm: React.FC<{
 
     try {
       if (isAdd) {
-        await createBuilding({
-          formerUse: formData.formerUse || ''
-        });
+        await createBuilding(formData as any);
       } else if (!isRequired) {
         await editMultipleBuildings({
           buildingIds: buildings.map((b) => b._id),
@@ -142,6 +144,14 @@ export const BuildingEditForm: React.FC<{
               step={0.1}
               value={formData.gfa ?? 0}
               onChange={(gfa) => setFormData({ ...formData, gfa })}
+              required={isRequired}
+            />
+            <Input
+              label="Building Yaw"
+              number
+              step={0.1}
+              value={formData.buildingYaw ?? 0}
+              onChange={(buildingYaw) => setFormData({ ...formData, buildingYaw })}
               required={isRequired}
             />
 

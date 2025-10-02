@@ -1,5 +1,6 @@
 import { mutation } from '../../_generated/server';
 import { v } from 'convex/values';
+import { reboundTestType } from '../../schema';
 
 export const editComponent = mutation({
   args: {
@@ -25,20 +26,7 @@ export const editComponent = mutation({
     geometryTypeId: v.optional(v.string()),
     manufacturerId: v.optional(v.string()),
     img: v.optional(v.array(v.any())),
-    reboundTest: v.optional(
-      v.array(
-        v.object({
-          location: v.object({
-            height: v.float64(),
-            latitude: v.float64(),
-            longitude: v.float64()
-          }),
-          reboundDate: v.string(),
-          reboundValue: v.array(v.float64()),
-          userId: v.optional(v.string())
-        })
-      )
-    ),
+    reboundTest: v.optional(v.array(reboundTestType)),
     visualInspection: v.optional(v.array(v.any()))
   },
   handler: async (ctx, args) => {
@@ -77,20 +65,7 @@ export const editMultipleComponents = mutation({
     geometryTypeId: v.optional(v.string()),
     manufacturerId: v.optional(v.string()),
     img: v.optional(v.array(v.any())),
-    reboundTest: v.optional(
-      v.array(
-        v.object({
-          location: v.object({
-            height: v.float64(),
-            latitude: v.float64(),
-            longitude: v.float64()
-          }),
-          reboundDate: v.string(),
-          reboundValue: v.array(v.float64()),
-          userId: v.optional(v.string())
-        })
-      )
-    ),
+    reboundTest: v.optional(v.array(reboundTestType)),
     visualInspection: v.optional(v.array(v.any()))
   },
   handler: async (ctx, args) => {

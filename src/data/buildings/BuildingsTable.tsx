@@ -39,8 +39,8 @@ export const BuildingTable: React.FC<{
         onGridReady={(e) => (gridRef.current = e.api)}
         columnDefs={[
           copyIdCellTable as any,
-          { field: 'formerUse' },
-          { field: 'address' },
+          { field: 'formerUse', filter: true },
+          { field: 'address', filter: true },
           { field: 'complexity' },
           {
             field: 'location',
@@ -49,10 +49,12 @@ export const BuildingTable: React.FC<{
           { field: 'type' },
           {
             field: 'owner',
+            filter: true,
             cellRenderer: (u: CustomCellRendererProps) => <UserChip user={u.value ?? undefined} />
           },
           {
             field: 'edit',
+            filter: true,
             cellRenderer: (u: CustomCellRendererProps) => (
               <ChipWrapper
                 onClick={() => {

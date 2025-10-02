@@ -1,4 +1,4 @@
-export const getColorForCondition = (condition: string): string => {
+export const getColorForCondition = (condition: string | undefined): string => {
   console.log(condition);
 
   if (condition === 'Good') return '#3CB371';

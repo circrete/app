@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, MapContainerProps } from 'react-leaflet';
 import { Map as LeafletMap } from 'leaflet';
 import { DataModel } from '../../../convex/_generated/dataModel';
-import { getCenterForBuildings, getMapStageKey } from './lib';
+import { getCenterForBuildings, getMapStageKey, getZoomForBuildings } from './lib';
 import { CircreteIcon } from './BuildingIcon';
 
 export const MapWrapper: React.FC<
@@ -16,7 +16,7 @@ export const MapWrapper: React.FC<
     attributionControl={false}
     className="w-full h-full"
     center={getCenterForBuildings(buildings)}
-    zoom={13}
+    zoom={getZoomForBuildings(buildings)}
     key={getMapStageKey(buildings)}
   >
     <TileLayer
